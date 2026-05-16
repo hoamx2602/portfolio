@@ -121,8 +121,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Prevent layout shift when Radix UI hides scrollbar on modal/dropdown open */
+    scrollbar-gutter: stable;
   }
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
 }

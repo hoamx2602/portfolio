@@ -61,7 +61,7 @@ export function Header() {
           </div>
 
           <div className="hidden md:flex md:items-center md:gap-4">
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-2">
                   <Globe className="h-4 w-4" />
@@ -115,7 +115,7 @@ export function Header() {
                 </Link>
               ))}
               <div className="px-4 py-2">
-                <DropdownMenu>
+                <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="w-full gap-2">
                       <Globe className="h-4 w-4" />
