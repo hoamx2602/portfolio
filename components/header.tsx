@@ -135,13 +135,6 @@ export function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              <div className="px-4 py-2">
-                <Button asChild className="w-full">
-                  <Link href="#contact" onClick={() => setMobileMenuOpen(false)}>
-                    {t.hero.cta}
-                  </Link>
-                </Button>
-              </div>
             </div>
           </div>
         )}
