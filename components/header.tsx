@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -11,19 +11,20 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useLanguage } from '@/components/language-context'
-import { type Locale, locales } from '@/lib/i18n'
+import { type Locale, locales, isRTL } from '@/lib/i18n'
 
 const languageLabels: Record<Locale, string> = {
   en: 'English',
-  es: 'Espanol',
-  fr: 'Francais',
+  es: 'Español',
+  fr: 'Français',
+  ar: 'العربية',
 }
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { locale, setLocale, t } = useLanguage()
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { href: '#about', label: t.nav.about },
     { href: '#services', label: t.nav.services },
     { href: '#training', label: t.nav.training },
@@ -31,7 +32,7 @@ export function Header() {
     { href: '#team', label: t.nav.team },
     { href: '#clients', label: t.nav.clients },
     { href: '#contact', label: t.nav.contact },
-  ]
+  ], [t])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">

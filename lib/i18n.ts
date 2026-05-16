@@ -1,6 +1,12 @@
-export type Locale = 'en' | 'es' | 'fr'
+export type Locale = 'en' | 'es' | 'fr' | 'ar'
 
-export const locales: Locale[] = ['en', 'es', 'fr']
+export const locales: Locale[] = ['en', 'es', 'fr', 'ar']
+
+export const rtlLocales: Locale[] = ['ar']
+
+export function isRTL(locale: Locale): boolean {
+  return rtlLocales.includes(locale)
+}
 
 export const translations = {
   en: {
@@ -328,6 +334,115 @@ export const translations = {
       copyright: 'Tous droits reserves.',
       privacy: 'Politique de Confidentialite',
       terms: 'Conditions d\'Utilisation',
+    },
+  },
+  ar: {
+    nav: {
+      about: 'من نحن',
+      services: 'خدماتنا',
+      training: 'التدريب',
+      projects: 'المشاريع',
+      team: 'الفريق',
+      clients: 'العملاء',
+      contact: 'تواصل معنا',
+    },
+    hero: {
+      tagline: 'استشارات وتدريب تقني',
+      title: 'تمكين الشركات بحلول الذكاء الاصطناعي وإنترنت الأشياء الصناعي وأتمتة العمليات',
+      subtitle: 'نساعد المؤسسات على تحويل عملياتها من خلال استشارات تقنية متطورة وبرامج تدريب احترافية.',
+      cta: 'ابدأ الآن',
+      learnMore: 'اعرف المزيد',
+    },
+    about: {
+      title: 'من نحن',
+      subtitle: 'نقود التحول الرقمي منذ عام 2015',
+      description: 'نحن شركة استشارات تقنية رائدة متخصصة في الذكاء الاصطناعي وإنترنت الأشياء الصناعي وأتمتة العمليات الآلية. يساعد فريق خبرائنا الشركات على تحسين العمليات وخفض التكاليف وتسريع النمو من خلال حلول مبتكرة.',
+      stats: {
+        clients: 'عميل تمت خدمته',
+        projects: 'مشروع تم تسليمه',
+        countries: 'دولة',
+        experts: 'مستشار خبير',
+      },
+    },
+    services: {
+      title: 'خدماتنا',
+      subtitle: 'حلول تقنية شاملة مصممة لاحتياجاتك',
+      learnMore: 'عرض برامج التدريب',
+      ai: {
+        title: 'الذكاء الاصطناعي',
+        description: 'حلول التعلم الآلي ومعالجة اللغة الطبيعية والرؤية الحاسوبية والتحليلات التنبؤية لأتمتة اتخاذ القرار وتعزيز ذكاء الأعمال.',
+      },
+      iiot: {
+        title: 'إنترنت الأشياء الصناعي',
+        description: 'التصنيع الذكي والصيانة التنبؤية وتتبع الأصول وأنظمة المراقبة في الوقت الفعلي لتحول الصناعة 4.0.',
+      },
+      rpa: {
+        title: 'أتمتة العمليات الآلية',
+        description: 'أتمتة سير العمل وتحسين العمليات وحلول الأتمتة الذكية لتبسيط العمليات التجارية وتقليل المهام اليدوية.',
+      },
+    },
+    training: {
+      title: 'برامج التدريب',
+      subtitle: 'طوّر مهارات فريقك مع دورات يقودها خبراء',
+      programs: {
+        aiFoundations: {
+          title: 'أساسيات الذكاء الاصطناعي',
+          duration: '40 ساعة',
+          level: 'مبتدئ',
+        },
+        iiotImplementation: {
+          title: 'تطبيق إنترنت الأشياء الصناعي',
+          duration: '32 ساعة',
+          level: 'متوسط',
+        },
+        rpaAdvanced: {
+          title: 'أتمتة العمليات المتقدمة',
+          duration: '48 ساعة',
+          level: 'متقدم',
+        },
+      },
+      viewAll: 'عرض جميع البرامج',
+    },
+    projects: {
+      title: 'المشاريع المميزة',
+      subtitle: 'حلول واقعية تحقق نتائج قابلة للقياس',
+      viewCase: 'عرض دراسة الحالة',
+    },
+    team: {
+      title: 'تعرف على فريقنا',
+      subtitle: 'خبراء الصناعة المكرسون لقيادة تحولك الرقمي',
+    },
+    clients: {
+      title: 'موثوق به من قبل رواد الصناعة',
+      subtitle: 'نتعاون مع منظمات رائدة عبر صناعات متنوعة',
+      testimonials: 'ماذا يقول عملاؤنا',
+      stats: {
+        clients: 'عميل حول العالم',
+        projects: 'مشروع تم تسليمه',
+        satisfaction: 'رضا العملاء',
+        countries: 'دولة تم خدمتها',
+      },
+    },
+    contact: {
+      title: 'تواصل معنا',
+      subtitle: 'هل أنت مستعد لتحويل أعمالك؟ دعنا نساعدك على البدء.',
+      form: {
+        name: 'اسمك',
+        email: 'البريد الإلكتروني',
+        company: 'الشركة',
+        message: 'الرسالة',
+        send: 'إرسال الرسالة',
+      },
+      info: {
+        email: 'contact@techconsult.com',
+        phone: '+1 (555) 123-4567',
+        address: '123 Innovation Drive, Tech City, TC 12345',
+      },
+    },
+    footer: {
+      copyright: 'جميع الحقوق محفوظة.',
+      privacy: 'سياسة الخصوصية',
+      terms: 'شروط الخدمة',
     },
   },
 }
