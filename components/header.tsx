@@ -27,6 +27,7 @@ export function Header() {
   const navItems = useMemo(() => [
     { href: '#about', label: t.nav.about },
     { href: '#services', label: t.nav.services },
+    { href: '#responsible-ai', label: t.nav.responsibleAI },
     { href: '#training', label: t.nav.training },
     { href: '#projects', label: t.nav.projects },
     { href: '#team', label: t.nav.team },

@@ -1,9 +1,17 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight, BookOpen, Shield, Cpu, Zap, Bot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/components/language-context'
+
+const techBadges = [
+  { label: 'Responsible AI', icon: Shield },
+  { label: 'Industrial IoT', icon: Cpu },
+  { label: 'AI & Machine Learning', icon: Zap },
+  { label: 'RPA & Automation', icon: Bot },
+  { label: 'AI Governance', icon: Shield },
+]
 
 export function HeroSection() {
   const { t } = useLanguage()
@@ -25,12 +33,14 @@ export function HeroSection() {
         }} />
       </div>
 
-      {/* Floating elements */}
+      {/* Floating ambient elements */}
       <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+        {/* Tagline pill */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
+          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true" />
           <span className="text-xs sm:text-sm font-medium text-primary tracking-wider uppercase">
             {t.hero.tagline}
           </span>
@@ -47,29 +57,36 @@ export function HeroSection() {
           {t.hero.subtitle}
         </p>
 
+        {/* Two CTA buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button asChild size="lg" className="gap-2 px-8">
+          <Button asChild size="lg" className="gap-2 px-8 h-12 text-base">
             <Link href="#contact">
               {t.hero.cta}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </Button>
-          <Button asChild variant="outline" size="lg" className="gap-2 px-8">
-            <Link href="#services">
-              <Play className="h-4 w-4" aria-hidden="true" />
-              {t.hero.learnMore}
+          <Button asChild variant="outline" size="lg" className="gap-2 px-8 h-12 text-base">
+            <Link href="#training">
+              <BookOpen className="h-4 w-4" aria-hidden="true" />
+              {t.hero.exploreTraining}
             </Link>
           </Button>
         </div>
 
+        {/* Trust signal */}
+        <p className="mt-5 text-sm text-muted-foreground/60">
+          {t.hero.trustSignal}
+        </p>
+
         {/* Tech badges */}
-        <nav aria-label="Technology expertise" className="mt-16 flex flex-wrap items-center justify-center gap-4">
-          {['AI', 'IIoT', 'RPA', 'ML', 'Automation'].map((tech) => (
+        <nav aria-label="Technology expertise" className="mt-14 flex flex-wrap items-center justify-center gap-3">
+          {techBadges.map((badge) => (
             <span
-              key={tech}
-              className="px-4 py-2 text-sm font-medium text-muted-foreground bg-secondary/50 rounded-lg border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-default"
+              key={badge.label}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-muted-foreground bg-secondary/50 rounded-lg border border-border hover:border-primary/50 hover:text-primary transition-colors cursor-default"
             >
-              {tech}
+              <badge.icon className="w-3.5 h-3.5" aria-hidden="true" />
+              {badge.label}
             </span>
           ))}
         </nav>
