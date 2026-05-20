@@ -22,8 +22,8 @@ export const translations = {
     },
     hero: {
       tagline: 'Responsible Industrial AI Consultancy',
-      title: 'Transforming Organisations Through AI, Industrial IoT & Responsible Automation',
-      subtitle: 'We help organisations adopt AI, Industrial IoT, RPA, and Responsible AI practices through expert consultancy, executive training, and applied innovation.',
+      title: 'Empowering Organisations Through AI, Automation & Digital Innovation',
+      subtitle: 'We help organisations adopt AI, Industrial IoT, and automation technologies responsibly through hands-on training and strategic guidance.',
       cta: 'Book a Consultation',
       learnMore: 'Learn More',
       exploreTraining: 'Explore Training Programmes',
@@ -176,8 +176,8 @@ export const translations = {
     },
     hero: {
       tagline: 'Consultoria de IA Industrial Responsable',
-      title: 'Transformando Organizaciones con IA, IIoT y Automatizacion Responsable',
-      subtitle: 'Ayudamos a organizaciones a adoptar IA, IIoT industrial, RPA e IA Responsable mediante consultoria experta, formacion ejecutiva e innovacion aplicada.',
+      title: 'Empoderando Organizaciones a través de IA, Automatización e Innovación Digital',
+      subtitle: 'Ayudamos a las organizaciones a adoptar la IA, el IIoT y las tecnologías de automatización de forma responsable a través de formación práctica y orientación estratégica.',
       cta: 'Reservar una Consulta',
       learnMore: 'Mas Informacion',
       exploreTraining: 'Explorar Programas de Formacion',
@@ -310,8 +310,8 @@ export const translations = {
     },
     hero: {
       tagline: 'Conseil en IA Industrielle Responsable',
-      title: 'Transformer les Organisations grace a l\'IA, l\'IIoT et l\'Automatisation Responsable',
-      subtitle: 'Nous aidons les organisations a adopter l\'IA, l\'IIoT industriel, la RPA et les pratiques d\'IA Responsable via le conseil expert, la formation executive et l\'innovation appliquee.',
+      title: 'Habiliter les Organisations grâce à l\'IA, l\'Automatisation et l\'Innovation Numérique',
+      subtitle: 'Nous aidons les organisations à adopter l\'IA, l\'IIoT et les technologies d\'automatisation de manière responsable via des formations pratiques et des conseils stratégiques.',
       cta: 'Reserver une Consultation',
       learnMore: 'En Savoir Plus',
       exploreTraining: 'Explorer les Programmes de Formation',
@@ -444,8 +444,8 @@ export const translations = {
     },
     hero: {
       tagline: 'استشارات الذكاء الاصطناعي الصناعي المسؤول',
-      title: 'تحويل المؤسسات من خلال الذكاء الاصطناعي وإنترنت الأشياء الصناعي والأتمتة المسؤولة',
-      subtitle: 'نساعد المؤسسات على تبني الذكاء الاصطناعي وإنترنت الأشياء الصناعي وأتمتة العمليات والذكاء الاصطناعي المسؤول من خلال الاستشارات الخبيرة والتدريب التنفيذي والابتكار التطبيقي.',
+      title: 'تمكين المؤسسات من خلال الذكاء الاصطناعي والأتمتة والابتكار الرقمي',
+      subtitle: 'نساعد المؤسسات على تبني تقنيات الذكاء الاصطناعي وإنترنت الأشياء الصناعي والأتمتة بمسؤولية من خلال التدريب العملي والتوجيه الاستراتيجي.',
       cta: 'احجز استشارة',
       learnMore: 'اعرف المزيد',
       exploreTraining: 'استكشف برامج التدريب',
