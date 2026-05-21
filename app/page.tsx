@@ -14,14 +14,16 @@ import { TeamSection } from '@/components/team-section'
 import { ClientsSection } from '@/components/clients-section'
 import { ContactSection } from '@/components/contact-section'
 import { Footer } from '@/components/footer'
+import { ParticleCanvas } from '@/components/particle-canvas'
 
 export default function Home() {
   return (
     <LanguageProvider>
       <FilterProvider>
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background relative">
+          <ParticleCanvas />
           <Header />
-          <main>
+          <main className="relative z-10">
             <HeroSection />
             <WhyChooseUsSection />
             <AboutSection />

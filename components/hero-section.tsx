@@ -14,100 +14,7 @@ const techBadges = [
   { label: 'AI Governance', icon: Shield },
 ]
 
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationId: number
-    let width = 0
-    let height = 0
-
-    const particles: {
-      x: number; y: number; vx: number; vy: number; r: number; alpha: number
-    }[] = []
-
-    const resize = () => {
-      width = canvas.width = canvas.offsetWidth
-      height = canvas.height = canvas.offsetHeight
-    }
-
-    const init = () => {
-      resize()
-      particles.length = 0
-      const count = Math.floor((width * height) / 12000)
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.5 + 0.2,
-        })
-      }
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height)
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 120) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(100, 210, 210, ${0.12 * (1 - dist / 120)})`
-            ctx.lineWidth = 0.6
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
-          }
-        }
-      }
-
-      // Draw particles
-      particles.forEach(p => {
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(100, 210, 210, ${p.alpha})`
-        ctx.fill()
-
-        p.x += p.vx
-        p.y += p.vy
-        if (p.x < 0 || p.x > width) p.vx *= -1
-        if (p.y < 0 || p.y > height) p.vy *= -1
-      })
-
-      animationId = requestAnimationFrame(draw)
-    }
-
-    init()
-    draw()
-
-    const ro = new ResizeObserver(() => { resize() })
-    ro.observe(canvas)
-
-    return () => {
-      cancelAnimationFrame(animationId)
-      ro.disconnect()
-    }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      aria-hidden="true"
-    />
-  )
-}
 
 export function HeroSection() {
   const { t } = useLanguage()
@@ -120,8 +27,7 @@ export function HeroSection() {
       {/* Base gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/30" />
 
-      {/* Particle network canvas */}
-      <ParticleCanvas />
+
 
       {/* Radial glow spots */}
       <div

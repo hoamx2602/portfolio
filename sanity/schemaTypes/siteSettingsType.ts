@@ -21,5 +21,26 @@ export const siteSettingsType: SchemaTypeDefinition = {
       initialValue: 'system',
       validation: (rule) => rule.required(),
     },
+    {
+      name: 'particleColorLight',
+      title: 'Particle Color (Light Theme)',
+      type: 'string',
+      description: 'Hex color code (e.g. #0f8c8c)',
+      initialValue: '#0f8c8c'
+    },
+    {
+      name: 'particleColorDark',
+      title: 'Particle Color (Dark Theme)',
+      type: 'string',
+      description: 'Hex color code (e.g. #64d2d2)',
+      initialValue: '#64d2d2'
+    },
+    {
+      name: 'particleSize',
+      title: 'Particle Size Multiplier',
+      type: 'number',
+      description: 'Default is 1.0. Increase for larger particles (e.g. 1.5, 2.0).',
+      initialValue: 1.0
+    }
   ],
 }
