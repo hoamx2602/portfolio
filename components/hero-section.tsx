@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Shield, Cpu, Zap, Bot, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Shield, Cpu, Zap, Bot } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/components/language-context'
 
@@ -148,12 +148,6 @@ export function HeroSection() {
 
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
-
-        {/* Glassmorphism tagline badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-sm font-medium text-primary">
-          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-          <span>{t.hero.tagline}</span>
-        </div>
 
         <h1
           id="hero-title"
