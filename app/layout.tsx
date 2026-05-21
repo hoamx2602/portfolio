@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { client } from '@/sanity/lib/client'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const inter = Inter({ 
@@ -193,13 +195,23 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  let globalTheme = 'system'
+  try {
+    const settings = await client.fetch(`*[_type == "siteSettings"][0]`, {}, { next: { revalidate: 0 } })
+    if (settings && settings.theme) {
+      globalTheme = settings.theme
+    }
+  } catch (error) {
+    console.error("Failed to fetch siteSettings from Sanity", error)
+  }
+
   return (
-    <html lang="en" className="bg-background scroll-smooth">
+    <html lang="en" className="bg-background scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
@@ -211,8 +223,16 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}>
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          forcedTheme={globalTheme !== 'system' ? globalTheme : undefined}
+          disableTransitionOnChange
+        >
+          {children}
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )

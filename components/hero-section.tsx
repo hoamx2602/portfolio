@@ -117,8 +117,8 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
       aria-labelledby="hero-title"
     >
-      {/* Deep dark gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.08_0.03_240)] via-background to-[oklch(0.10_0.04_220)]" />
+      {/* Base gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/30" />
 
       {/* Particle network canvas */}
       <ParticleCanvas />
@@ -151,13 +151,7 @@ export function HeroSection() {
 
         <h1
           id="hero-title"
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance"
-          style={{
-            background: 'linear-gradient(135deg, oklch(0.95 0.01 240) 0%, oklch(0.72 0.15 185) 50%, oklch(0.85 0.10 200) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-          }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-balance bg-gradient-to-br from-foreground via-primary to-foreground bg-clip-text text-transparent"
         >
           {t.hero.title}
         </h1>
@@ -171,11 +165,7 @@ export function HeroSection() {
           <Button
             asChild
             size="lg"
-            className="gap-2 px-8 h-12 text-base relative overflow-hidden group"
-            style={{
-              background: 'linear-gradient(135deg, oklch(0.72 0.15 185), oklch(0.60 0.14 200))',
-              boxShadow: '0 0 30px rgba(100, 210, 210, 0.25)',
-            }}
+            className="gap-2 px-8 h-12 text-base relative overflow-hidden group bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_30px_rgba(100,210,210,0.25)]"
           >
             <Link href="#contact">
               <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

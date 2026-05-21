@@ -48,21 +48,15 @@ export function ResponsibleAISection() {
           {/* Left: Content */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
-              <span className="text-xs font-semibold text-emerald-400 tracking-widest uppercase">
+              <Shield className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" aria-hidden="true" />
+              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 tracking-widest uppercase">
                 {t.responsibleAI.tagline}
               </span>
             </div>
 
             <h2
               id="responsible-ai-title"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-balance leading-tight"
-              style={{
-                background: 'linear-gradient(135deg, oklch(0.95 0.01 240) 0%, oklch(0.75 0.13 165) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-balance leading-tight bg-gradient-to-br from-foreground to-emerald-600 dark:to-emerald-400 bg-clip-text text-transparent"
             >
               {t.responsibleAI.title}
             </h2>
@@ -77,7 +71,7 @@ export function ResponsibleAISection() {
             <Button
               asChild
               size="lg"
-              className="gap-2 relative overflow-hidden group"
+              className="gap-2 relative overflow-hidden group text-white hover:text-white"
               style={{
                 background: 'linear-gradient(135deg, oklch(0.60 0.14 165), oklch(0.52 0.13 175))',
                 boxShadow: '0 0 28px rgba(52,211,153,0.20)',
@@ -127,7 +121,7 @@ export function ResponsibleAISection() {
                     style={{ background: 'rgba(52,211,153,0.10)', border: '1px solid rgba(52,211,153,0.2)' }}
                     aria-hidden="true"
                   >
-                    <pillar.icon className="w-4 h-4 text-emerald-400" />
+                    <pillar.icon className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <span className="text-sm font-medium text-foreground leading-snug pt-1 relative z-10">
                     {pillar.label}
@@ -146,8 +140,8 @@ export function ResponsibleAISection() {
                 style={{ background: 'linear-gradient(90deg, transparent, rgba(52,211,153,0.4), transparent)' }}
                 aria-hidden="true"
               />
-              <p className="text-sm text-emerald-300/90 leading-relaxed">
-                <span className="font-semibold text-emerald-300">{t.responsibleAI.calloutBold} </span>
+              <p className="text-sm text-emerald-800 dark:text-emerald-300/90 leading-relaxed">
+                <span className="font-semibold text-emerald-700 dark:text-emerald-300">{t.responsibleAI.calloutBold} </span>
                 {t.responsibleAI.callout}
               </p>
             </div>
