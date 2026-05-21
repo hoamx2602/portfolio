@@ -2,6 +2,9 @@
 
 import { useLanguage } from '@/components/language-context'
 import { Quote, Star } from 'lucide-react'
+import useEmblaCarousel from 'embla-carousel-react'
+import AutoScroll from 'embla-carousel-auto-scroll'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const clients = [
   { name: 'TechCorp Industries',   logo: 'TC' },
@@ -47,6 +50,43 @@ const testimonials = [
 export function ClientsSection() {
   const { t } = useLanguage()
 
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true, dragFree: true },
+    [AutoScroll({ playOnInit: true, stopOnMouseEnter: true, stopOnInteraction: true, speed: 1.5 })]
+  )
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const playAfterDelay = useCallback(() => {
+    const autoScroll = emblaApi?.plugins()?.autoScroll
+    if (!autoScroll) return
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      autoScroll.play()
+    }, 2000)
+  }, [emblaApi])
+
+  const handlePointerDown = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    emblaApi.on('pointerDown', handlePointerDown)
+    emblaApi.on('pointerUp', playAfterDelay)
+    return () => {
+      emblaApi.off('pointerDown', handlePointerDown)
+      emblaApi.off('pointerUp', playAfterDelay)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
+  }, [emblaApi, handlePointerDown, playAfterDelay])
+
   return (
     <section id="clients" className="py-24 relative overflow-hidden" aria-labelledby="clients-title">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -65,25 +105,34 @@ export function ClientsSection() {
           </p>
         </header>
 
-        {/* Client logos grid */}
-        <ul className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-20" aria-label="Our clients">
-          {clients.map((client) => (
-            <li
-              key={client.name}
-              className="group bg-card rounded-xl border border-border p-5 flex items-center gap-3 hover:border-primary/40 hover:bg-primary/3 transition-all duration-300 cursor-default"
-            >
+        {/* Client logos Embla Slider */}
+        <div 
+          className="relative overflow-hidden mb-20 cursor-grab active:cursor-grabbing"
+          ref={emblaRef}
+          onMouseLeave={playAfterDelay}
+          onMouseEnter={handlePointerDown}
+        >
+          <div className="flex touch-pan-y" aria-label="Our clients">
+            {clients.map((client, idx) => (
               <div
-                className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300"
-                aria-hidden="true"
+                key={`${client.name}-${idx}`}
+                className="flex-[0_0_auto] min-w-0 pr-4 sm:pr-8"
               >
-                <span className="text-sm font-bold text-primary">{client.logo}</span>
+                <div className="group bg-card rounded-xl border border-border p-5 flex items-center justify-center gap-3 hover:border-primary/40 hover:bg-primary/3 transition-all duration-300 w-64 h-full">
+                  <div
+                    className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300"
+                    aria-hidden="true"
+                  >
+                    <span className="text-sm font-bold text-primary">{client.logo}</span>
+                  </div>
+                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 block">
+                    {client.name}
+                  </span>
+                </div>
               </div>
-              <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 hidden sm:block">
-                {client.name}
-              </span>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
 
         {/* Testimonials */}
         <div className="text-center mb-12">
