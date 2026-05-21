@@ -1,17 +1,17 @@
 'use client'
 
 import { useLanguage } from '@/components/language-context'
-import { Quote } from 'lucide-react'
+import { Quote, Star } from 'lucide-react'
 
 const clients = [
-  { name: 'TechCorp Industries', logo: 'TC' },
-  { name: 'Global Manufacturing', logo: 'GM' },
-  { name: 'FinServe Solutions', logo: 'FS' },
-  { name: 'HealthCare Plus', logo: 'HC' },
-  { name: 'AutoMotive Leaders', logo: 'AL' },
-  { name: 'Energy Dynamics', logo: 'ED' },
-  { name: 'Retail Networks', logo: 'RN' },
-  { name: 'Logistics Pro', logo: 'LP' },
+  { name: 'TechCorp Industries',   logo: 'TC' },
+  { name: 'Global Manufacturing',  logo: 'GM' },
+  { name: 'FinServe Solutions',    logo: 'FS' },
+  { name: 'HealthCare Plus',       logo: 'HC' },
+  { name: 'AutoMotive Leaders',    logo: 'AL' },
+  { name: 'Energy Dynamics',       logo: 'ED' },
+  { name: 'Retail Networks',       logo: 'RN' },
+  { name: 'Logistics Pro',         logo: 'LP' },
 ]
 
 const testimonials = [
@@ -21,6 +21,8 @@ const testimonials = [
     role: 'VP of Operations',
     company: 'FinServe Solutions',
     initials: 'JM',
+    accentColor: '#60a5fa',
+    stars: 5,
   },
   {
     quote: 'The IIoT implementation exceeded our expectations. Production efficiency increased by 40% and maintenance costs dropped significantly.',
@@ -28,6 +30,8 @@ const testimonials = [
     role: 'Plant Director',
     company: 'Global Manufacturing',
     initials: 'RC',
+    accentColor: '#34d399',
+    stars: 5,
   },
   {
     quote: 'Outstanding training programs. Our team gained practical skills they could apply immediately. Highly recommend their RPA courses.',
@@ -35,6 +39,8 @@ const testimonials = [
     role: 'IT Director',
     company: 'HealthCare Plus',
     initials: 'LA',
+    accentColor: '#a78bfa',
+    stars: 5,
   },
 ]
 
@@ -42,11 +48,16 @@ export function ClientsSection() {
   const { t } = useLanguage()
 
   return (
-    <section id="clients" className="py-24" aria-labelledby="clients-title">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <section id="clients" className="py-24 relative overflow-hidden" aria-labelledby="clients-title">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
         <header className="text-center mb-16">
-          <h2 id="clients-title" className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
+          <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary tracking-widest uppercase mb-4 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+            Trusted Partners
+          </span>
+          <h2 id="clients-title" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
             {t.clients?.title || 'Trusted by Industry Leaders'}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
@@ -54,52 +65,81 @@ export function ClientsSection() {
           </p>
         </header>
 
-        {/* Client Logos */}
-        <ul className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-20" aria-label="Our clients">
+        {/* Client logos grid */}
+        <ul className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-20" aria-label="Our clients">
           {clients.map((client) => (
             <li
               key={client.name}
-              className="bg-card rounded-xl border border-border p-6 flex items-center justify-center hover:border-primary/50 transition-colors"
+              className="group bg-card rounded-xl border border-border p-5 flex items-center gap-3 hover:border-primary/40 hover:bg-primary/3 transition-all duration-300 cursor-default"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                  <span className="text-sm font-bold text-primary">{client.logo}</span>
-                </div>
-                <span className="text-sm font-medium text-muted-foreground hidden sm:block">
-                  {client.name}
-                </span>
+              <div
+                className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors duration-300"
+                aria-hidden="true"
+              >
+                <span className="text-sm font-bold text-primary">{client.logo}</span>
               </div>
+              <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300 hidden sm:block">
+                {client.name}
+              </span>
             </li>
           ))}
         </ul>
 
         {/* Testimonials */}
         <div className="text-center mb-12">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
+          <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
             {t.clients?.testimonials || 'What Our Clients Say'}
           </h3>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8" role="list" aria-label="Client testimonials">
+        <div className="grid lg:grid-cols-3 gap-6 mb-20" role="list" aria-label="Client testimonials">
           {testimonials.map((testimonial, index) => (
             <blockquote
               key={index}
-              className="bg-card rounded-2xl border border-border p-6 hover:border-primary/50 transition-colors"
+              className="group bg-card rounded-2xl border border-border p-6 hover:border-primary/35 transition-all duration-500 flex flex-col relative overflow-hidden"
               role="listitem"
+              style={{ transitionDelay: `${index * 80}ms` }}
             >
-              <Quote className="w-8 h-8 text-primary/30 mb-4" aria-hidden="true" />
-              
-              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty">
+              {/* Hover glow */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                style={{ background: `radial-gradient(circle at 20% 20%, ${testimonial.accentColor}10 0%, transparent 65%)` }}
+                aria-hidden="true"
+              />
+
+              {/* Stars */}
+              <div className="flex gap-0.5 mb-4" aria-label={`${testimonial.stars} out of 5 stars`}>
+                {Array.from({ length: testimonial.stars }).map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" aria-hidden="true" />
+                ))}
+              </div>
+
+              <Quote
+                className="w-7 h-7 mb-3 opacity-30"
+                style={{ color: testimonial.accentColor }}
+                aria-hidden="true"
+              />
+
+              <p className="text-muted-foreground leading-relaxed mb-6 text-pretty flex-1 relative z-10">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
-              
-              <footer className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center" aria-hidden="true">
-                  <span className="text-sm font-bold text-primary">{testimonial.initials}</span>
+
+              <footer className="flex items-center gap-3 relative z-10">
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 border"
+                  style={{
+                    background: `${testimonial.accentColor}18`,
+                    borderColor: `${testimonial.accentColor}35`,
+                  }}
+                  aria-hidden="true"
+                >
+                  <span className="text-sm font-bold" style={{ color: testimonial.accentColor }}>
+                    {testimonial.initials}
+                  </span>
                 </div>
                 <div>
-                  <cite className="font-medium text-foreground not-italic">{testimonial.author}</cite>
-                  <p className="text-sm text-muted-foreground">
+                  <cite className="font-semibold text-foreground not-italic text-sm">{testimonial.author}</cite>
+                  <p className="text-xs text-muted-foreground mt-0.5">
                     {testimonial.role}, {testimonial.company}
                   </p>
                 </div>
@@ -108,17 +148,25 @@ export function ClientsSection() {
           ))}
         </div>
 
-        {/* Stats */}
-        <dl className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Stats bar */}
+        <dl
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-8 rounded-2xl border border-border relative overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, rgba(100,210,210,0.04), rgba(80,180,220,0.02))' }}
+        >
+          <div
+            className="absolute top-0 left-0 right-0 h-px"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(100,210,210,0.3), transparent)' }}
+            aria-hidden="true"
+          />
           {[
-            { value: '200+', label: t.clients?.stats?.clients || 'Clients Worldwide' },
-            { value: '500+', label: t.clients?.stats?.projects || 'Projects Delivered' },
-            { value: '98%', label: t.clients?.stats?.satisfaction || 'Client Satisfaction' },
-            { value: '15+', label: t.clients?.stats?.countries || 'Countries Served' },
+            { value: '200+', label: t.clients?.stats?.clients     || 'Clients Worldwide' },
+            { value: '500+', label: t.clients?.stats?.projects    || 'Projects Delivered' },
+            { value: '98%',  label: t.clients?.stats?.satisfaction || 'Client Satisfaction' },
+            { value: '15+',  label: t.clients?.stats?.countries   || 'Countries Served' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <dt className="sr-only">{stat.label}</dt>
-              <dd className="text-4xl font-bold text-primary mb-2">{stat.value}</dd>
+              <dd className="text-3xl sm:text-4xl font-bold text-primary mb-1.5 tabular-nums">{stat.value}</dd>
               <dt className="text-sm text-muted-foreground">{stat.label}</dt>
             </div>
           ))}
