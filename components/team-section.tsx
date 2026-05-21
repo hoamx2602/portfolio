@@ -1,9 +1,25 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Linkedin, Twitter, Mail } from 'lucide-react'
 import { useLanguage } from '@/components/language-context'
+import { client } from '@/sanity/lib/client'
+import { urlForImage } from '@/sanity/lib/image'
 
-const team = [
+type TeamMember = {
+  name: string
+  role: string
+  bio: string
+  gradientFrom: string
+  gradientTo: string
+  accentColor: string
+  initials: string
+  linkedin: string
+  twitter: string
+  avatar?: string
+}
+
+const defaultTeam: TeamMember[] = [
   {
     name: 'Dr. Sarah Chen',
     role: 'CEO & AI Lead',
@@ -74,9 +90,30 @@ const team = [
 
 export function TeamSection() {
   const { t } = useLanguage()
+  const [fetchedTeam, setFetchedTeam] = useState<TeamMember[]>([])
+  
+  useEffect(() => {
+    async function fetchTeam() {
+      try {
+        const data = await client.fetch(`*[_type == "teamMember"]`)
+        if (data && data.length > 0) {
+          const formatted = data.map((p: any) => ({
+             ...p,
+             avatar: p.avatar ? urlForImage(p.avatar)?.url() : undefined
+          }))
+          setFetchedTeam(formatted)
+        }
+      } catch (e) {
+        console.error("Sanity fetch error:", e)
+      }
+    }
+    fetchTeam()
+  }, [])
+  
+  const currentTeam = fetchedTeam.length > 0 ? fetchedTeam : defaultTeam
 
   return (
-    <section id="team" className="py-24 relative overflow-hidden" aria-labelledby="team-title">
+    <section id="team" className="py-24 relative overflow-hidden bg-background" aria-labelledby="team-title">
       <div className="absolute inset-0 bg-secondary/20" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
@@ -94,8 +131,8 @@ export function TeamSection() {
           </p>
         </header>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Team members">
-          {team.map((member, i) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="Team members">
+          {currentTeam.map((member, i) => (
             <article
               key={member.name}
               className="group bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 transition-all duration-500 flex flex-col"
@@ -120,7 +157,7 @@ export function TeamSection() {
                 />
                 {/* Avatar circle */}
                 <div
-                  className="relative w-22 h-22 rounded-full flex items-center justify-center border-2 backdrop-blur-sm transition-transform duration-500 group-hover:scale-105"
+                  className="relative w-22 h-22 rounded-full flex items-center justify-center border-2 backdrop-blur-sm transition-transform duration-500 group-hover:scale-105 overflow-hidden"
                   style={{
                     width: '88px',
                     height: '88px',
@@ -129,12 +166,16 @@ export function TeamSection() {
                     boxShadow: `0 0 30px ${member.accentColor}30`,
                   }}
                 >
-                  <span
-                    className="text-2xl font-bold"
-                    style={{ color: member.accentColor }}
-                  >
-                    {member.initials}
-                  </span>
+                  {member.avatar ? (
+                    <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span
+                      className="text-2xl font-bold"
+                      style={{ color: member.accentColor }}
+                    >
+                      {member.initials}
+                    </span>
+                  )}
                 </div>
               </div>
 

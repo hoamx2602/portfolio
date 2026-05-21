@@ -5,6 +5,8 @@ import { ArrowRight, X, Play, ExternalLink, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useLanguage } from '@/components/language-context'
+import { client } from '@/sanity/lib/client'
+import { urlForImage } from '@/sanity/lib/image'
 
 type Project = {
   id: string
@@ -23,9 +25,10 @@ type Project = {
   solution: string
   results: string[]
   technologies: string[]
+  thumbnail?: string
 }
 
-const projects: Project[] = [
+const defaultProjects: Project[] = [
   {
     id: 'smart-factory',
     title: 'Smart Factory Transformation',
@@ -298,10 +301,31 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 export function ProjectsSection() {
   const { t } = useLanguage()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [fetchedProjects, setFetchedProjects] = useState<Project[]>([])
+  
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await client.fetch(`*[_type == "project"]`)
+        if (data && data.length > 0) {
+          const formatted = data.map((p: any) => ({
+             ...p,
+             thumbnail: p.thumbnail ? urlForImage(p.thumbnail)?.url() : ''
+          }))
+          setFetchedProjects(formatted)
+        }
+      } catch (e) {
+        console.error("Sanity fetch error:", e)
+      }
+    }
+    fetchProjects()
+  }, [])
+  
+  const currentProjects = fetchedProjects.length > 0 ? fetchedProjects : defaultProjects
 
   return (
     <>
-      <section id="projects" className="py-24 relative overflow-hidden" aria-labelledby="projects-title">
+      <section id="projects" className="py-24 relative overflow-hidden bg-background" aria-labelledby="projects-title">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -321,7 +345,7 @@ export function ProjectsSection() {
           </header>
 
           <div className="grid lg:grid-cols-3 gap-6" role="list" aria-label="Featured projects">
-            {projects.map((project, i) => (
+            {currentProjects.map((project, i) => (
               <article
                 key={project.id}
                 className="group bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 transition-all duration-500 cursor-pointer flex flex-col"
