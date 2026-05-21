@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {
   Clock, Users, ArrowRight, ChevronDown, ChevronUp,
   CheckCircle2, TrendingUp, ShieldCheck, BarChart3, Zap,
-  Factory, Wifi,
+  Factory, Wifi, LucideIcon
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -21,22 +21,23 @@ type ModuleDay = {
   topics: string[]
 }
 
-type IIoTOverview = {
+type OverviewData = {
   description: string
-  noCodingNote: string
+  noCodingNote?: string
+  calloutTitle?: string
   benefits: {
-    icon: typeof TrendingUp
+    icon: LucideIcon
     title: string
     stat: string
     desc: string
   }[]
   useCases: {
-    icon: typeof Factory
+    icon: LucideIcon
     title: string
     outcome: string
   }[]
   topics: string[]
-  gallery: {
+  gallery?: {
     src: string
     caption: string
   }[]
@@ -61,63 +62,28 @@ type TrainingModule =
       level: string
       color: string
       contentType: 'overview'
-      overview: IIoTOverview
+      overview: OverviewData
     }
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
-const iiotOverview: IIoTOverview = {
+const iiotOverview: OverviewData = {
   description:
     'A practical, business-focused programme that equips operational managers, engineers, and decision-makers with the knowledge to plan, deploy, and govern Industrial IoT solutions — without writing a single line of code.',
   noCodingNote:
     'Designed for operations leaders, plant managers, and business stakeholders. You will work with real industrial dashboards and configure live sensor streams hands-on — all through visual, no-code tools.',
+  calloutTitle: 'No Coding Required',
   benefits: [
-    {
-      icon: TrendingUp,
-      title: 'Reduce Operational Costs',
-      stat: 'Up to 25% savings',
-      desc: 'Identify inefficiencies and automate data collection to cut labour and maintenance spend.',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Prevent Costly Downtime',
-      stat: 'Up to 40% fewer failures',
-      desc: 'Use real-time sensor data and predictive alerts to act before equipment breaks down.',
-    },
-    {
-      icon: BarChart3,
-      title: 'Data-Driven Decisions',
-      stat: 'Live operational dashboards',
-      desc: 'Replace gut-feel with real-time visibility across every machine, line, and facility.',
-    },
-    {
-      icon: Zap,
-      title: 'Accelerate Digital Transformation',
-      stat: 'Industry 4.0 readiness',
-      desc: 'Build internal capability to lead IIoT projects and evaluate vendor proposals confidently.',
-    },
+    { icon: TrendingUp, title: 'Reduce Operational Costs', stat: 'Up to 25% savings', desc: 'Identify inefficiencies and automate data collection to cut labour and maintenance spend.' },
+    { icon: ShieldCheck, title: 'Prevent Costly Downtime', stat: 'Up to 40% fewer failures', desc: 'Use real-time sensor data and predictive alerts to act before equipment breaks down.' },
+    { icon: BarChart3, title: 'Data-Driven Decisions', stat: 'Live operational dashboards', desc: 'Replace gut-feel with real-time visibility across every machine, line, and facility.' },
+    { icon: Zap, title: 'Accelerate Digital Transformation', stat: 'Industry 4.0 readiness', desc: 'Build internal capability to lead IIoT projects and evaluate vendor proposals confidently.' },
   ],
   useCases: [
-    {
-      icon: Factory,
-      title: 'Smart Manufacturing',
-      outcome: 'Reduced scrap rate by 18% through real-time quality monitoring on the production line.',
-    },
-    {
-      icon: Wifi,
-      title: 'Connected Asset Tracking',
-      outcome: 'Achieved 99.2% asset visibility across 3 sites — with zero IT dependency.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Predictive Maintenance',
-      outcome: 'Cut unplanned downtime by 35% within 6 months of deployment.',
-    },
-    {
-      icon: BarChart3,
-      title: 'Energy Monitoring',
-      outcome: 'Identified £120k/yr in energy waste through automated consumption tracking.',
-    },
+    { icon: Factory, title: 'Smart Manufacturing', outcome: 'Reduced scrap rate by 18% through real-time quality monitoring on the production line.' },
+    { icon: Wifi, title: 'Connected Asset Tracking', outcome: 'Achieved 99.2% asset visibility across 3 sites — with zero IT dependency.' },
+    { icon: TrendingUp, title: 'Predictive Maintenance', outcome: 'Cut unplanned downtime by 35% within 6 months of deployment.' },
+    { icon: BarChart3, title: 'Energy Monitoring', outcome: 'Identified £120k/yr in energy waste through automated consumption tracking.' },
   ],
   topics: [
     'IIoT architecture & sensor ecosystems',
@@ -187,6 +153,144 @@ const trainingModules: TrainingModule[] = [
       { day: 5, title: 'Real-World Projects',           topics: ['End-to-End Analytics Project', 'Business Intelligence', 'Reporting Automation'] },
     ],
   },
+  {
+    id: 'data-management-ai',
+    category: 'ai',
+    title: 'Data Management for AI Readiness',
+    duration: '3 days',
+    level: 'Intermediate',
+    color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    contentType: 'overview',
+    overview: {
+      description: 'A strategic deep dive into organizing, structuring, and securing enterprise data to unlock the full potential of artificial intelligence. Master the foundations required to feed high-quality data into complex ML models and LLMs.',
+      benefits: [
+        { icon: TrendingUp, title: 'Accelerate AI Adoption', stat: 'Faster deployment', desc: 'Cut down data preparation time by building scalable, automated ETL pipelines.' },
+        { icon: ShieldCheck, title: 'Ensure Compliance', stat: 'GDPR ready', desc: 'Implement robust data governance and anonymization to protect sensitive information.' },
+        { icon: BarChart3, title: 'Improve Model Accuracy', stat: 'Higher precision', desc: 'Feed your AI high-quality, normalized data to eliminate hallucinations and bias.' },
+        { icon: Zap, title: 'Break Data Silos', stat: 'Unified architecture', desc: 'Consolidate disparate data sources into a cohesive data lake or warehouse strategy.' },
+      ],
+      useCases: [
+        { icon: Factory, title: 'Enterprise Data Lake', outcome: 'Centralized 5PB of scattered data into a single source of truth for AI training.' },
+        { icon: Wifi, title: 'Real-Time Streaming', outcome: 'Enabled sub-second anomaly detection by implementing Kafka data pipelines.' },
+        { icon: TrendingUp, title: 'Automated Cleaning', outcome: 'Reduced manual data wrangling hours by 80% using automated quality checks.' },
+        { icon: ShieldCheck, title: 'Secure PII Handling', outcome: 'Achieved 100% compliance in healthcare data anonymization for ML.' },
+      ],
+      topics: [
+        'Data Architecture: Lakes vs Warehouses',
+        'Cloud Infrastructure & Storage',
+        'Data Governance & Compliance (GDPR)',
+        'ETL/ELT Processes & Orchestration',
+        'Real-time Data Streaming',
+        'Data Cleaning & Validation',
+        'Feature Engineering for AI',
+        'Privacy & Anonymization Techniques',
+      ],
+    }
+  },
+  {
+    id: 'responsible-llm-integration',
+    category: 'ai',
+    title: 'Responsible LLM Enterprise Integration',
+    duration: '2 days',
+    level: 'Advanced',
+    color: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    contentType: 'overview',
+    overview: {
+      description: 'Equip your technical leadership with the frameworks needed to safely deploy Large Language Models in production. Focus on mitigating risks, preventing data leakage, and ensuring ethical AI alignment.',
+      benefits: [
+        { icon: ShieldCheck, title: 'Mitigate Hallucinations', stat: '99% factual accuracy', desc: 'Implement RAG and grounding techniques to ensure LLM outputs are reliable.' },
+        { icon: Factory, title: 'Prevent Data Leaks', stat: 'Zero exposure', desc: 'Design secure boundaries to prevent sensitive corporate data from training public models.' },
+        { icon: Zap, title: 'Defend Against Attacks', stat: 'Robust security', desc: 'Secure your AI applications against prompt injections and jailbreaks.' },
+        { icon: TrendingUp, title: 'Ensure Ethical AI', stat: 'Bias-free operations', desc: 'Establish guidelines and automated checks to prevent discriminatory outputs.' },
+      ],
+      useCases: [
+        { icon: ShieldCheck, title: 'Secure Copilot', outcome: 'Deployed internal coding assistant with strict IP protection boundaries.' },
+        { icon: Factory, title: 'Enterprise RAG', outcome: 'Built a hallucination-free document QA system over 100,000 internal PDFs.' },
+        { icon: Wifi, title: 'Red Teaming', outcome: 'Identified and patched 15 critical vulnerabilities in customer-facing chatbots.' },
+        { icon: BarChart3, title: 'Bias Auditing', outcome: 'Implemented automated fairness checks in an AI recruitment screening tool.' },
+      ],
+      topics: [
+        'Evaluating Foundation Models',
+        'Hallucination Mitigation Strategies',
+        'Security & Data Leakage Risks',
+        'Retrieval-Augmented Generation (RAG)',
+        'Prompt Injection Defense',
+        'Ethical AI Guidelines & Bias',
+        'Model Auditing & Red Teaming',
+        'Compliance in Generative AI',
+      ],
+    }
+  },
+  {
+    id: 'masterful-prompt-engineering',
+    category: 'ai',
+    title: 'Masterful Prompt Engineering',
+    duration: '2 days',
+    level: 'All Levels',
+    color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    contentType: 'overview',
+    overview: {
+      description: 'Transform how your team communicates with AI. Learn advanced techniques to extract maximum value from foundation models through precise, structured, and iterative prompting methodologies.',
+      benefits: [
+        { icon: Zap, title: 'Boost Productivity', stat: '3x faster outputs', desc: 'Reduce the time spent re-prompting by getting it right the first time.' },
+        { icon: BarChart3, title: 'Enhance Output Quality', stat: 'Higher relevance', desc: 'Use advanced framing and constraints to generate highly specific, usable results.' },
+        { icon: ShieldCheck, title: 'Standardize Prompts', stat: 'Consistent AI', desc: 'Develop a library of standardized system prompts for your entire organization.' },
+        { icon: Factory, title: 'Automate Workflows', stat: 'Agentic tasks', desc: 'Learn to string multiple prompts together to solve complex, multi-step problems.' },
+      ],
+      useCases: [
+        { icon: TrendingUp, title: 'Content Generation', outcome: 'Automated high-quality marketing copy generation with strict brand voice constraints.' },
+        { icon: Zap, title: 'Data Extraction', outcome: 'Extracted structured JSON data from messy, unstructured text with 98% accuracy.' },
+        { icon: Wifi, title: 'Code Refactoring', outcome: 'Used Chain-of-Thought to rewrite legacy codebases efficiently.' },
+        { icon: Factory, title: 'Customer Support', outcome: 'Designed robust system prompts that handle angry customers gracefully.' },
+      ],
+      topics: [
+        'Zero-Shot & Few-Shot Prompting',
+        'Persona Assignment & Roleplay',
+        'Context Framing & Constraints',
+        'Chain-of-Thought (CoT) Reasoning',
+        'ReAct Framework (Reason + Act)',
+        'Iterative Refinement & Prompt Chaining',
+        'System Prompts & Instruction Tuning',
+        'Evaluating Prompt Effectiveness',
+      ],
+    }
+  },
+  {
+    id: 'ai-native-vibe-coding',
+    category: 'ai',
+    title: 'AI-Native Vibe Coding & Prototyping',
+    duration: '3 days',
+    level: 'Intermediate',
+    color: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20',
+    contentType: 'overview',
+    overview: {
+      description: 'Embrace the future of software development where plain English is your primary programming language. Learn to build, iterate, and deploy functional applications at unprecedented speeds using AI-first IDEs and agentic workflows.',
+      noCodingNote: 'While this course covers software concepts, the focus is on directing AI agents through natural language ("vibe coding") rather than writing syntax manually.',
+      calloutTitle: 'Natural Language Coding',
+      benefits: [
+        { icon: Zap, title: 'Rapid Prototyping', stat: '10x faster MVP', desc: 'Go from idea to functional prototype in hours instead of weeks.' },
+        { icon: Factory, title: 'Focus on Architecture', stat: 'Semantic logic', desc: 'Shift your focus from writing boilerplate syntax to designing high-level system logic.' },
+        { icon: ShieldCheck, title: 'Automated Debugging', stat: 'Fewer blockers', desc: 'Leverage AI agents to instantly identify, explain, and fix complex bugs.' },
+        { icon: TrendingUp, title: 'Empower Non-Coders', stat: 'Accessible dev', desc: 'Enable product managers and designers to build functional tools independently.' },
+      ],
+      useCases: [
+        { icon: Wifi, title: 'Internal Tooling', outcome: 'Built a complete CRM dashboard from scratch in 2 days using Cursor.' },
+        { icon: Factory, title: 'Legacy Modernization', outcome: 'Migrated a React app to Next.js by delegating repetitive tasks to an AI agent.' },
+        { icon: Zap, title: 'UI/UX Iteration', outcome: 'Iterated through 5 different design systems in one afternoon simply by describing the "vibe".' },
+        { icon: BarChart3, title: 'Test Automation', outcome: 'Generated 100% unit test coverage for an entire module in minutes.' },
+      ],
+      topics: [
+        'The "Vibe Coding" Paradigm Shift',
+        'Mastering AI IDEs (Cursor, Windsurf)',
+        'Prompt-Driven Architecture Design',
+        'Component & Scaffold Generation',
+        'Managing AI Context & Codebase Indexing',
+        'Agentic Development Workflows',
+        'AI-Assisted Bug Fixing & Refactoring',
+        'UI/UX Iteration by Vibe',
+      ],
+    }
+  },
   // ── IIoT — overview format ──
   {
     id: 'iiot-fundamentals',
@@ -217,29 +321,31 @@ const trainingModules: TrainingModule[] = [
   },
 ]
 
-// ── Overview renderer (IIoT) ─────────────────────────────────────────────────
+// ── Overview renderer ────────────────────────────────────────────────────────
 
-function OverviewContent({ overview }: { overview: IIoTOverview }) {
+function OverviewContent({ overview }: { overview: OverviewData }) {
   return (
     <div className="px-6 pb-8 pt-2 border-t border-border space-y-8">
 
-      {/* Description + no-coding callout */}
-      <div className="grid md:grid-cols-2 gap-5 pt-4">
-        <p className="text-muted-foreground leading-relaxed text-pretty">
+      {/* Description + optional no-coding callout */}
+      <div className={cn("grid gap-5 pt-4", overview.noCodingNote ? "md:grid-cols-2" : "md:grid-cols-1")}>
+        <p className="text-muted-foreground leading-relaxed text-pretty max-w-4xl">
           {overview.description}
         </p>
-        <div
-          className="flex items-start gap-3 p-4 rounded-xl border border-emerald-500/25"
-          style={{ background: 'rgba(52,211,153,0.06)' }}
-        >
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shrink-0 mt-0.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        {overview.noCodingNote && (
+          <div
+            className="flex items-start gap-3 p-4 rounded-xl border border-emerald-500/25"
+            style={{ background: 'rgba(52,211,153,0.06)' }}
+          >
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shrink-0 mt-0.5">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">{overview.calloutTitle || 'No Coding Required'}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{overview.noCodingNote}</p>
+            </div>
           </div>
-          <div>
-            <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">No coding required</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">{overview.noCodingNote}</p>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Business impact */}
@@ -249,17 +355,17 @@ function OverviewContent({ overview }: { overview: IIoTOverview }) {
           {overview.benefits.map((b) => (
             <div
               key={b.title}
-              className="group p-4 rounded-xl bg-secondary/50 border border-border hover:border-emerald-500/30 transition-all duration-300 relative overflow-hidden"
+              className="group p-4 rounded-xl bg-secondary/50 border border-border hover:border-primary/30 transition-all duration-300 relative overflow-hidden"
             >
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"
-                style={{ background: 'radial-gradient(circle at 30% 20%, rgba(52,211,153,0.07) 0%, transparent 70%)' }}
+                style={{ background: 'radial-gradient(circle at 30% 20%, var(--tw-gradient-stops))' }}
                 aria-hidden="true"
               />
-              <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-3">
-                <b.icon className="w-4 h-4 text-emerald-400" />
+              <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-3">
+                <b.icon className="w-4 h-4 text-primary" />
               </div>
-              <p className="text-xs font-bold text-emerald-400 mb-1">{b.stat}</p>
+              <p className="text-xs font-bold text-primary mb-1">{b.stat}</p>
               <p className="text-sm font-semibold text-foreground mb-1">{b.title}</p>
               <p className="text-xs text-muted-foreground leading-relaxed">{b.desc}</p>
             </div>
@@ -294,44 +400,42 @@ function OverviewContent({ overview }: { overview: IIoTOverview }) {
         <ul className="grid sm:grid-cols-2 gap-2">
           {overview.topics.map((topic) => (
             <li key={topic} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" aria-hidden="true" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
               {topic}
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Photo gallery */}
-      <div>
-        <h4 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Programme Gallery</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {overview.gallery.map((item) => (
-            <div
-              key={item.src}
-              className="group relative aspect-video rounded-xl overflow-hidden border border-border hover:border-emerald-500/40 transition-all duration-300"
-            >
-              <Image
-                src={item.src}
-                alt={item.caption}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 50vw, 25vw"
-              />
-              {/* Caption overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                <span className="text-xs text-white font-medium leading-tight">{item.caption}</span>
+      {/* Photo gallery (optional) */}
+      {overview.gallery && (
+        <div>
+          <h4 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Programme Gallery</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {overview.gallery.map((item) => (
+              <div
+                key={item.src}
+                className="group relative aspect-video rounded-xl overflow-hidden border border-border hover:border-primary/40 transition-all duration-300"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.caption}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+                  <span className="text-xs text-white font-medium leading-tight">{item.caption}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* CTA */}
       <div className="flex justify-end pt-2">
-        <Button
-          className="gap-2"
-          style={{ background: 'linear-gradient(135deg, oklch(0.60 0.14 165), oklch(0.52 0.13 175))' }}
-        >
+        <Button className="gap-2" style={{ background: 'linear-gradient(135deg, oklch(0.60 0.14 165), oklch(0.52 0.13 175))' }}>
           Enrol Now
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Button>
@@ -460,9 +564,9 @@ export function TrainingSection() {
                       <div className="flex items-center gap-3 flex-wrap">
                         <h3 className="text-xl font-semibold text-foreground">{module.title}</h3>
                         <Badge variant="outline" className={module.color}>{module.level}</Badge>
-                        {module.contentType === 'overview' && (
+                        {module.contentType === 'overview' && module.overview.noCodingNote && (
                           <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-xs">
-                            No Coding Required
+                            {module.overview.calloutTitle || 'No Coding Required'}
                           </Badge>
                         )}
                       </div>
