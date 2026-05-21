@@ -2,8 +2,9 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
-  Clock, Users, ArrowRight, ChevronDown, ChevronUp,
+  Clock, Users, ArrowRight, X,
   CheckCircle2, TrendingUp, ShieldCheck, BarChart3, Zap,
   Factory, Wifi, LucideIcon
 } from 'lucide-react'
@@ -51,6 +52,7 @@ type TrainingModule =
       duration: string
       level: string
       color: string
+      thumbnail: string
       contentType: 'days'
       days: ModuleDay[]
     }
@@ -61,6 +63,7 @@ type TrainingModule =
       duration: string
       level: string
       color: string
+      thumbnail: string
       contentType: 'overview'
       overview: OverviewData
     }
@@ -112,6 +115,7 @@ const trainingModules: TrainingModule[] = [
     duration: '5 days',
     level: 'Beginner',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    thumbnail: '/thumb-python.png',
     contentType: 'days',
     days: [
       { day: 1, title: 'Python Basics',                 topics: ['Variables & Data Types', 'Control Flow', 'Functions'] },
@@ -128,6 +132,7 @@ const trainingModules: TrainingModule[] = [
     duration: '5 days',
     level: 'Intermediate',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    thumbnail: '/thumb-ml.png',
     contentType: 'days',
     days: [
       { day: 1, title: 'ML Fundamentals',               topics: ['Supervised vs Unsupervised', 'Model Evaluation', 'Train/Test Split'] },
@@ -144,6 +149,7 @@ const trainingModules: TrainingModule[] = [
     duration: '5 days',
     level: 'Advanced',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    thumbnail: '/thumb-data-analytics.png',
     contentType: 'days',
     days: [
       { day: 1, title: 'Advanced Pandas',               topics: ['MultiIndex', 'Time Series Analysis', 'Data Aggregation'] },
@@ -160,6 +166,7 @@ const trainingModules: TrainingModule[] = [
     duration: '3 days',
     level: 'Intermediate',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    thumbnail: '/thumb-data-mgmt.png',
     contentType: 'overview',
     overview: {
       description: 'A strategic deep dive into organizing, structuring, and securing enterprise data to unlock the full potential of artificial intelligence. Master the foundations required to feed high-quality data into complex ML models and LLMs.',
@@ -194,6 +201,7 @@ const trainingModules: TrainingModule[] = [
     duration: '2 days',
     level: 'Advanced',
     color: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    thumbnail: '/thumb-llm.png',
     contentType: 'overview',
     overview: {
       description: 'Equip your technical leadership with the frameworks needed to safely deploy Large Language Models in production. Focus on mitigating risks, preventing data leakage, and ensuring ethical AI alignment.',
@@ -228,6 +236,7 @@ const trainingModules: TrainingModule[] = [
     duration: '2 days',
     level: 'All Levels',
     color: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    thumbnail: '/thumb-prompt.png',
     contentType: 'overview',
     overview: {
       description: 'Transform how your team communicates with AI. Learn advanced techniques to extract maximum value from foundation models through precise, structured, and iterative prompting methodologies.',
@@ -262,6 +271,7 @@ const trainingModules: TrainingModule[] = [
     duration: '3 days',
     level: 'Intermediate',
     color: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20',
+    thumbnail: '/thumb-vibe-coding.png',
     contentType: 'overview',
     overview: {
       description: 'Embrace the future of software development where plain English is your primary programming language. Learn to build, iterate, and deploy functional applications at unprecedented speeds using AI-first IDEs and agentic workflows.',
@@ -299,6 +309,7 @@ const trainingModules: TrainingModule[] = [
     duration: '5 days',
     level: 'Intermediate',
     color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    thumbnail: '/iiot-edge-architecture.png',
     contentType: 'overview',
     overview: iiotOverview,
   },
@@ -310,6 +321,7 @@ const trainingModules: TrainingModule[] = [
     duration: '5 days',
     level: 'Intermediate',
     color: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+    thumbnail: '/thumb-rpa.png',
     contentType: 'days',
     days: [
       { day: 1, title: 'RPA Fundamentals',              topics: ['Introduction to RPA', 'Process Assessment', 'Automation Candidates'] },
@@ -321,14 +333,14 @@ const trainingModules: TrainingModule[] = [
   },
 ]
 
-// ── Overview renderer ────────────────────────────────────────────────────────
+// ── Renderers ────────────────────────────────────────────────────────────────
 
 function OverviewContent({ overview }: { overview: OverviewData }) {
   return (
-    <div className="px-6 pb-8 pt-2 border-t border-border space-y-8">
+    <div className="px-6 pb-8 pt-6 space-y-8">
 
       {/* Description + optional no-coding callout */}
-      <div className={cn("grid gap-5 pt-4", overview.noCodingNote ? "md:grid-cols-2" : "md:grid-cols-1")}>
+      <div className={cn("grid gap-5", overview.noCodingNote ? "md:grid-cols-2" : "md:grid-cols-1")}>
         <p className="text-muted-foreground leading-relaxed text-pretty max-w-4xl">
           {overview.description}
         </p>
@@ -434,8 +446,8 @@ function OverviewContent({ overview }: { overview: OverviewData }) {
       )}
 
       {/* CTA */}
-      <div className="flex justify-end pt-2">
-        <Button className="gap-2" style={{ background: 'linear-gradient(135deg, oklch(0.60 0.14 165), oklch(0.52 0.13 175))' }}>
+      <div className="flex justify-end pt-4 border-t border-border mt-8">
+        <Button className="gap-2 px-8" style={{ background: 'linear-gradient(135deg, oklch(0.60 0.14 165), oklch(0.52 0.13 175))' }}>
           Enrol Now
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Button>
@@ -444,12 +456,10 @@ function OverviewContent({ overview }: { overview: OverviewData }) {
   )
 }
 
-// ── Day-by-day renderer ──────────────────────────────────────────────────────
-
 function DaysContent({ days }: { days: ModuleDay[] }) {
   return (
-    <div className="px-6 pb-6 pt-2 border-t border-border">
-      <div className="grid gap-4">
+    <div className="px-6 pb-6 pt-6">
+      <div className="grid gap-4 mb-8">
         {days.map((day) => (
           <div key={day.day} className="bg-secondary/50 rounded-xl p-4">
             <div className="flex items-start gap-4">
@@ -460,7 +470,7 @@ function DaysContent({ days }: { days: ModuleDay[] }) {
                 <h4 className="font-medium text-foreground mb-2">{day.title}</h4>
                 <div className="flex flex-wrap gap-2">
                   {day.topics.map((topic) => (
-                    <span key={topic} className="px-2 py-1 text-xs bg-background rounded-md text-muted-foreground">
+                    <span key={topic} className="px-2 py-1 text-xs bg-background rounded-md text-muted-foreground border border-border">
                       {topic}
                     </span>
                   ))}
@@ -470,8 +480,8 @@ function DaysContent({ days }: { days: ModuleDay[] }) {
           </div>
         ))}
       </div>
-      <div className="mt-6 flex justify-end">
-        <Button className="gap-2">
+      <div className="flex justify-end pt-4 border-t border-border mt-8">
+        <Button className="gap-2 px-8">
           Enroll Now
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Button>
@@ -480,24 +490,98 @@ function DaysContent({ days }: { days: ModuleDay[] }) {
   )
 }
 
+// ── Modal ────────────────────────────────────────────────────────────────────
+
+function TrainingModal({ module, onClose }: { module: TrainingModule; onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        className="bg-card border border-border rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative flex flex-col"
+        onClick={(e) => e.stopPropagation()}
+        role="document"
+      >
+        {/* Header Banner */}
+        <div className="relative h-48 sm:h-64 shrink-0 rounded-t-2xl overflow-hidden border-b border-border">
+          <Image
+            src={module.thumbnail}
+            alt={module.title}
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 bg-background/40 hover:bg-background/70 backdrop-blur-md"
+            onClick={onClose}
+          >
+            <X className="w-5 h-5" />
+          </Button>
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="flex items-center gap-3 flex-wrap mb-3">
+              <Badge variant="outline" className={`bg-background/50 backdrop-blur-sm ${module.color}`}>
+                {module.level}
+              </Badge>
+              {module.contentType === 'overview' && module.overview.noCodingNote && (
+                <Badge variant="outline" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 backdrop-blur-sm">
+                  {module.overview.calloutTitle || 'No Coding Required'}
+                </Badge>
+              )}
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">
+              {module.title}
+            </h2>
+            <div className="flex items-center gap-4 text-sm text-muted-foreground mt-3">
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4" />
+                <span>{module.duration}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Users className="w-4 h-4" />
+                <span>15–20 participants per class</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Modal Content Body */}
+        <div className="flex-1 overflow-y-auto">
+          {module.contentType === 'overview' ? (
+            <OverviewContent overview={module.overview} />
+          ) : (
+            <DaysContent days={module.days} />
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Main section ─────────────────────────────────────────────────────────────
 
-export function TrainingSection() {
+export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }) {
   const { t } = useLanguage()
   const { activeFilter, setActiveFilter } = useFilter()
-  const [expandedModules, setExpandedModules] = useState<string[]>([])
+  const [selectedModule, setSelectedModule] = useState<TrainingModule | null>(null)
 
-  const filteredModules = activeFilter === 'all'
+  const allFilteredModules = activeFilter === 'all'
     ? trainingModules
     : trainingModules.filter(m => m.category === activeFilter)
+    
+  const filteredModules = isFullPage 
+    ? allFilteredModules 
+    : allFilteredModules.slice(0, 6)
 
-  const toggleModule = (moduleId: string) => {
-    setExpandedModules(prev =>
-      prev.includes(moduleId)
-        ? prev.filter(id => id !== moduleId)
-        : [...prev, moduleId]
-    )
-  }
+  const hasMore = !isFullPage && allFilteredModules.length > 6
 
   const filterButtons: { id: ServiceCategory; label: string }[] = [
     { id: 'all',  label: 'All Programs' },
@@ -507,121 +591,131 @@ export function TrainingSection() {
   ]
 
   return (
-    <section id="training" className="py-24 bg-secondary/30" aria-labelledby="training-title">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <header className="text-center mb-12">
-          <h2 id="training-title" className="text-3xl sm:text-4xl font-bold text-foreground mb-4 text-balance">
-            {t.training.title}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            {t.training.subtitle}
-          </p>
-        </header>
+    <>
+      <section id="training" className="py-24 bg-secondary/30 relative overflow-hidden" aria-labelledby="training-title">
+        {/* Subtle grid background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" aria-hidden="true" />
+        
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <header className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold text-primary tracking-widest uppercase mb-4 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
+              Expert-led
+            </span>
+            <h2 id="training-title" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
+              {t.training.title}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
+              {t.training.subtitle}
+            </p>
+          </header>
 
-        {/* Filter Buttons */}
-        <nav aria-label="Filter training programs" className="flex flex-wrap justify-center gap-3 mb-12" role="group">
-          {filterButtons.map((filter) => (
-            <Button
-              key={filter.id}
-              variant={activeFilter === filter.id ? 'default' : 'outline'}
-              onClick={() => setActiveFilter(filter.id)}
-              className="min-w-[140px]"
-              aria-pressed={activeFilter === filter.id}
-            >
-              {filter.label}
-            </Button>
-          ))}
-        </nav>
+          {/* Filter Buttons */}
+          <nav aria-label="Filter training programs" className="flex flex-wrap justify-center gap-3 mb-12" role="group">
+            {filterButtons.map((filter) => (
+              <Button
+                key={filter.id}
+                variant={activeFilter === filter.id ? 'default' : 'outline'}
+                onClick={() => setActiveFilter(filter.id)}
+                className="min-w-[140px] transition-all duration-300"
+                aria-pressed={activeFilter === filter.id}
+              >
+                {filter.label}
+              </Button>
+            ))}
+          </nav>
 
-        {/* Training Modules */}
-        <div className="grid gap-6" role="list" aria-label="Training modules">
-          {filteredModules.map((module) => {
-            const isExpanded = expandedModules.includes(module.id)
-
-            return (
+          {/* Training Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Training modules">
+            {filteredModules.map((module) => (
               <article
                 key={module.id}
-                className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-colors"
+                className="group bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all duration-500 cursor-pointer flex flex-col"
+                onClick={() => setSelectedModule(module)}
                 role="listitem"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedModule(module)
+                  }
+                }}
               >
-                {/* Module Header */}
-                <div
-                  className="p-6 cursor-pointer flex items-center justify-between"
-                  onClick={() => toggleModule(module.id)}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isExpanded}
-                  aria-controls={`module-content-${module.id}`}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      toggleModule(module.id)
-                    }
-                  }}
-                >
-                  <div className="flex items-center gap-4">
-                    <div>
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="text-xl font-semibold text-foreground">{module.title}</h3>
-                        <Badge variant="outline" className={module.color}>{module.level}</Badge>
-                        {module.contentType === 'overview' && module.overview.noCodingNote && (
-                          <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-xs">
-                            {module.overview.calloutTitle || 'No Coding Required'}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="w-4 h-4" aria-hidden="true" />
-                          <span>{module.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-4 h-4" aria-hidden="true" />
-                          <span>15–20 participants</span>
-                        </div>
-                      </div>
+                {/* Card Thumbnail */}
+                <div className="relative aspect-video w-full overflow-hidden border-b border-border bg-muted/20">
+                  <Image
+                    src={module.thumbnail}
+                    alt={module.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80" />
+                  
+                  {/* Badges Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                    <Badge variant="outline" className={`bg-background/80 backdrop-blur-sm ${module.color}`}>
+                      {module.level}
+                    </Badge>
+                    {module.contentType === 'overview' && module.overview.noCodingNote && (
+                      <Badge variant="outline" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 backdrop-blur-sm">
+                        {module.overview.calloutTitle || 'No Coding Required'}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300">
+                    {module.title}
+                  </h3>
+                  
+                  <div className="flex items-center gap-5 text-sm text-muted-foreground mb-6">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" aria-hidden="true" />
+                      <span>{module.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4" aria-hidden="true" />
+                      <span>15–20 pax</span>
                     </div>
                   </div>
-                  <Button variant="ghost" size="icon" aria-label={isExpanded ? 'Collapse module' : 'Expand module'}>
-                    {isExpanded
-                      ? <ChevronUp className="w-5 h-5" aria-hidden="true" />
-                      : <ChevronDown className="w-5 h-5" aria-hidden="true" />
-                    }
-                  </Button>
-                </div>
 
-                {/* Expandable Content */}
-                <div
-                  id={`module-content-${module.id}`}
-                  className={cn(
-                    'overflow-hidden transition-all duration-300',
-                    isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-                  )}
-                >
-                  {module.contentType === 'overview'
-                    ? <OverviewContent overview={module.overview} />
-                    : <DaysContent days={module.days} />
-                  }
+                  <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
+                    <span className="text-sm font-semibold text-primary group-hover:underline decoration-primary/50 underline-offset-4">
+                      View Syllabus
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
                 </div>
               </article>
-            )
-          })}
-        </div>
-
-        {activeFilter !== 'all' && (
-          <div className="text-center mt-12">
-            <Button
-              variant="ghost"
-              size="lg"
-              className="gap-2"
-              onClick={() => setActiveFilter('all')}
-            >
-              {t.training.viewAll}
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Button>
+            ))}
           </div>
-        )}
-      </div>
-    </section>
+
+          {(activeFilter !== 'all' || hasMore) && !isFullPage && (
+            <div className="text-center mt-12">
+              <Link href="/training">
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  className="gap-2"
+                >
+                  View All Programs
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Modal */}
+      {selectedModule && (
+        <TrainingModal
+          module={selectedModule}
+          onClose={() => setSelectedModule(null)}
+        />
+      )}
+    </>
   )
 }
