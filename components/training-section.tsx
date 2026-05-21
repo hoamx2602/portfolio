@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -13,6 +13,8 @@ import { Badge } from '@/components/ui/badge'
 import { useLanguage } from '@/components/language-context'
 import { useFilter, ServiceCategory } from '@/components/filter-context'
 import { cn } from '@/lib/utils'
+import { client } from '@/sanity/lib/client'
+import { urlForImage } from '@/sanity/lib/image'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -106,7 +108,7 @@ const iiotOverview: OverviewData = {
   ],
 }
 
-const trainingModules: TrainingModule[] = [
+const defaultTrainingModules: TrainingModule[] = [
   // ── AI ──
   {
     id: 'python-fundamentals',
@@ -572,10 +574,33 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
   const { t } = useLanguage()
   const { activeFilter, setActiveFilter } = useFilter()
   const [selectedModule, setSelectedModule] = useState<TrainingModule | null>(null)
+  const [fetchedModules, setFetchedModules] = useState<TrainingModule[]>([])
+
+  // Fetch data from Sanity on component mount
+  useEffect(() => {
+    async function fetchModules() {
+      try {
+        const data = await client.fetch(`*[_type == "trainingModule"]`)
+        if (data && data.length > 0) {
+          const formatted = data.map((m: any) => ({
+             ...m,
+             id: m._id,
+             thumbnail: m.thumbnail ? urlForImage(m.thumbnail)?.url() : ''
+          }))
+          setFetchedModules(formatted)
+        }
+      } catch (e) {
+        console.error("Sanity fetch error:", e)
+      }
+    }
+    fetchModules()
+  }, [])
+
+  const currentModules = fetchedModules.length > 0 ? fetchedModules : defaultTrainingModules
 
   const allFilteredModules = activeFilter === 'all'
-    ? trainingModules
-    : trainingModules.filter(m => m.category === activeFilter)
+    ? currentModules
+    : currentModules.filter(m => m.category === activeFilter)
     
   const filteredModules = isFullPage 
     ? allFilteredModules 
