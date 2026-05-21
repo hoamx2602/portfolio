@@ -31,7 +31,7 @@ export function ResponsibleAISection() {
   return (
     <section id="responsible-ai" className="py-24 relative overflow-hidden" aria-labelledby="responsible-ai-title">
       {/* Emerald gradient bg */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/30 via-background to-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 dark:from-emerald-950/30 via-background to-background" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 

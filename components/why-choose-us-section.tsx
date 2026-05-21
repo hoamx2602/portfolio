@@ -23,10 +23,10 @@ export function WhyChooseUsSection() {
       title: t.whyUs.responsible.title,
       description: t.whyUs.responsible.description,
       glow: 'rgba(52, 211, 153, 0.12)',
-      iconColor: 'text-emerald-400',
+      iconColor: 'text-emerald-600 dark:text-emerald-400',
       iconBg: 'linear-gradient(135deg, rgba(52,211,153,0.15), rgba(20,184,166,0.08))',
       iconBorder: 'rgba(52,211,153,0.25)',
-      borderHover: 'hover:border-emerald-400/40',
+      borderHover: 'hover:border-emerald-500/40',
       number: '02',
     },
     {

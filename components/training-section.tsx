@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
   Clock, Users, ArrowRight, X,
-  CheckCircle2, TrendingUp, ShieldCheck, BarChart3, Zap,
+  CheckCircle, TrendingUp, ShieldCheck, BarChart, Zap,
   Factory, Wifi, LucideIcon
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -81,14 +81,14 @@ const iiotOverview: OverviewData = {
   benefits: [
     { icon: TrendingUp, title: 'Reduce Operational Costs', stat: 'Up to 25% savings', desc: 'Identify inefficiencies and automate data collection to cut labour and maintenance spend.' },
     { icon: ShieldCheck, title: 'Prevent Costly Downtime', stat: 'Up to 40% fewer failures', desc: 'Use real-time sensor data and predictive alerts to act before equipment breaks down.' },
-    { icon: BarChart3, title: 'Data-Driven Decisions', stat: 'Live operational dashboards', desc: 'Replace gut-feel with real-time visibility across every machine, line, and facility.' },
+    { icon: BarChart, title: 'Data-Driven Decisions', stat: 'Live operational dashboards', desc: 'Replace gut-feel with real-time visibility across every machine, line, and facility.' },
     { icon: Zap, title: 'Accelerate Digital Transformation', stat: 'Industry 4.0 readiness', desc: 'Build internal capability to lead IIoT projects and evaluate vendor proposals confidently.' },
   ],
   useCases: [
     { icon: Factory, title: 'Smart Manufacturing', outcome: 'Reduced scrap rate by 18% through real-time quality monitoring on the production line.' },
     { icon: Wifi, title: 'Connected Asset Tracking', outcome: 'Achieved 99.2% asset visibility across 3 sites — with zero IT dependency.' },
     { icon: TrendingUp, title: 'Predictive Maintenance', outcome: 'Cut unplanned downtime by 35% within 6 months of deployment.' },
-    { icon: BarChart3, title: 'Energy Monitoring', outcome: 'Identified £120k/yr in energy waste through automated consumption tracking.' },
+    { icon: BarChart, title: 'Energy Monitoring', outcome: 'Identified £120k/yr in energy waste through automated consumption tracking.' },
   ],
   topics: [
     'IIoT architecture & sensor ecosystems',
@@ -175,7 +175,7 @@ const defaultTrainingModules: TrainingModule[] = [
       benefits: [
         { icon: TrendingUp, title: 'Accelerate AI Adoption', stat: 'Faster deployment', desc: 'Cut down data preparation time by building scalable, automated ETL pipelines.' },
         { icon: ShieldCheck, title: 'Ensure Compliance', stat: 'GDPR ready', desc: 'Implement robust data governance and anonymization to protect sensitive information.' },
-        { icon: BarChart3, title: 'Improve Model Accuracy', stat: 'Higher precision', desc: 'Feed your AI high-quality, normalized data to eliminate hallucinations and bias.' },
+        { icon: BarChart, title: 'Improve Model Accuracy', stat: 'Higher precision', desc: 'Feed your AI high-quality, normalized data to eliminate hallucinations and bias.' },
         { icon: Zap, title: 'Break Data Silos', stat: 'Unified architecture', desc: 'Consolidate disparate data sources into a cohesive data lake or warehouse strategy.' },
       ],
       useCases: [
@@ -217,7 +217,7 @@ const defaultTrainingModules: TrainingModule[] = [
         { icon: ShieldCheck, title: 'Secure Copilot', outcome: 'Deployed internal coding assistant with strict IP protection boundaries.' },
         { icon: Factory, title: 'Enterprise RAG', outcome: 'Built a hallucination-free document QA system over 100,000 internal PDFs.' },
         { icon: Wifi, title: 'Red Teaming', outcome: 'Identified and patched 15 critical vulnerabilities in customer-facing chatbots.' },
-        { icon: BarChart3, title: 'Bias Auditing', outcome: 'Implemented automated fairness checks in an AI recruitment screening tool.' },
+        { icon: BarChart, title: 'Bias Auditing', outcome: 'Implemented automated fairness checks in an AI recruitment screening tool.' },
       ],
       topics: [
         'Evaluating Foundation Models',
@@ -244,7 +244,7 @@ const defaultTrainingModules: TrainingModule[] = [
       description: 'Transform how your team communicates with AI. Learn advanced techniques to extract maximum value from foundation models through precise, structured, and iterative prompting methodologies.',
       benefits: [
         { icon: Zap, title: 'Boost Productivity', stat: '3x faster outputs', desc: 'Reduce the time spent re-prompting by getting it right the first time.' },
-        { icon: BarChart3, title: 'Enhance Output Quality', stat: 'Higher relevance', desc: 'Use advanced framing and constraints to generate highly specific, usable results.' },
+        { icon: BarChart, title: 'Enhance Output Quality', stat: 'Higher relevance', desc: 'Use advanced framing and constraints to generate highly specific, usable results.' },
         { icon: ShieldCheck, title: 'Standardize Prompts', stat: 'Consistent AI', desc: 'Develop a library of standardized system prompts for your entire organization.' },
         { icon: Factory, title: 'Automate Workflows', stat: 'Agentic tasks', desc: 'Learn to string multiple prompts together to solve complex, multi-step problems.' },
       ],
@@ -289,7 +289,7 @@ const defaultTrainingModules: TrainingModule[] = [
         { icon: Wifi, title: 'Internal Tooling', outcome: 'Built a complete CRM dashboard from scratch in 2 days using Cursor.' },
         { icon: Factory, title: 'Legacy Modernization', outcome: 'Migrated a React app to Next.js by delegating repetitive tasks to an AI agent.' },
         { icon: Zap, title: 'UI/UX Iteration', outcome: 'Iterated through 5 different design systems in one afternoon simply by describing the "vibe".' },
-        { icon: BarChart3, title: 'Test Automation', outcome: 'Generated 100% unit test coverage for an entire module in minutes.' },
+        { icon: BarChart, title: 'Test Automation', outcome: 'Generated 100% unit test coverage for an entire module in minutes.' },
       ],
       topics: [
         'The "Vibe Coding" Paradigm Shift',
@@ -310,7 +310,7 @@ const defaultTrainingModules: TrainingModule[] = [
     title: 'IIoT Implementation',
     duration: '5 days',
     level: 'Intermediate',
-    color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    color: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
     thumbnail: '/iiot-edge-architecture.png',
     contentType: 'overview',
     overview: iiotOverview,
@@ -351,11 +351,11 @@ function OverviewContent({ overview }: { overview: OverviewData }) {
             className="flex items-start gap-3 p-4 rounded-xl border border-emerald-500/25"
             style={{ background: 'rgba(52,211,153,0.06)' }}
           >
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shrink-0 mt-0.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5">
+              <CheckCircle className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">{overview.calloutTitle || 'No Coding Required'}</p>
+              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-1">{overview.calloutTitle || 'No Coding Required'}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{overview.noCodingNote}</p>
             </div>
           </div>
@@ -534,7 +534,7 @@ function TrainingModal({ module, onClose }: { module: TrainingModule; onClose: (
                 {module.level}
               </Badge>
               {module.contentType === 'overview' && module.overview.noCodingNote && (
-                <Badge variant="outline" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 backdrop-blur-sm">
+                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
                   {module.overview.calloutTitle || 'No Coding Required'}
                 </Badge>
               )}
@@ -582,11 +582,24 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
       try {
         const data = await client.fetch(`*[_type == "trainingModule"]`)
         if (data && data.length > 0) {
-          const formatted = data.map((m: any) => ({
-             ...m,
-             id: m._id,
-             thumbnail: m.thumbnail ? urlForImage(m.thumbnail)?.url() : ''
-          }))
+          const iconMap: Record<string, LucideIcon> = { TrendingUp, ShieldCheck, BarChart, Zap, Factory, Wifi, CheckCircle }
+          const formatted = data.map((m: any) => {
+            const overview = m.overview ? { ...m.overview } : undefined;
+            if (overview) {
+              if (overview.benefits) {
+                overview.benefits = overview.benefits.map((b: any) => ({ ...b, icon: iconMap[b.iconName] || CheckCircle }));
+              }
+              if (overview.useCases) {
+                overview.useCases = overview.useCases.map((u: any) => ({ ...u, icon: iconMap[u.iconName] || CheckCircle }));
+              }
+            }
+            return {
+              ...m,
+              id: m._id,
+              overview: overview || m.overview,
+              thumbnail: m.thumbnail ? urlForImage(m.thumbnail)?.url() : ''
+            }
+          })
           setFetchedModules(formatted)
         }
       } catch (e) {
@@ -674,7 +687,7 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-80" />
                   
                   {/* Badges Overlay */}
                   <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
@@ -682,7 +695,7 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
                       {module.level}
                     </Badge>
                     {module.contentType === 'overview' && module.overview.noCodingNote && (
-                      <Badge variant="outline" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 backdrop-blur-sm">
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 backdrop-blur-sm">
                         {module.overview.calloutTitle || 'No Coding Required'}
                       </Badge>
                     )}

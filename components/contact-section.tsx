@@ -61,7 +61,7 @@ export function ContactSection() {
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12 gap-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
-                  <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                  <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">Message Sent!</h3>
                 <p className="text-muted-foreground text-sm max-w-xs">

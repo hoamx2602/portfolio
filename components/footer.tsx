@@ -109,8 +109,8 @@ export function Footer() {
                 borderColor: 'rgba(52,211,153,0.22)',
               }}
             >
-              <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
-              <span className="text-xs text-emerald-400 font-medium">{t.footer.gdprNote}</span>
+              <Shield className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t.footer.gdprNote}</span>
             </div>
           </div>
         </div>

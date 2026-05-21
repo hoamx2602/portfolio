@@ -34,7 +34,7 @@ const defaultProjects: Project[] = [
     title: 'Smart Factory Transformation',
     client: 'Global Manufacturing Corp',
     category: 'IIoT',
-    categoryColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    categoryColor: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
     description:
       'Implemented a comprehensive IIoT solution reducing downtime by 40% and increasing production efficiency by 25%.',
     metrics: [
