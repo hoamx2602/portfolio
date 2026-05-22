@@ -82,19 +82,35 @@ const modulesData = [
   },
   {
     category: 'ai',
-    title: 'Python Fundamentals',
-    duration: '5 days',
+    title: 'Upskill with Python',
+    duration: '3 days',
     level: 'Beginner',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
     thumbnail: '/thumb-python.png',
-    contentType: 'days',
-    days: [
-      { day: 1, title: 'Python Basics', topics: ['Variables & Data Types', 'Control Flow', 'Functions'] },
-      { day: 2, title: 'Data Structures', topics: ['Lists & Tuples', 'Dictionaries', 'Sets'] },
-      { day: 3, title: 'Object-Oriented Programming', topics: ['Classes & Objects', 'Inheritance', 'Polymorphism'] },
-      { day: 4, title: 'File Handling & Modules', topics: ['File I/O', 'Exception Handling', 'Custom Modules'] },
-      { day: 5, title: 'Python for Data Science', topics: ['NumPy Basics', 'Pandas Introduction', 'Data Visualization with Matplotlib'] },
-    ],
+    contentType: 'overview',
+    overview: {
+      description: 'A fast-paced, practical primer designed to give you just enough Python to automate daily tasks, parse data, and unlock new levels of productivity without getting bogged down in complex computer science theory.',
+      benefits: [
+        { iconName: 'Zap', title: 'Task Automation', stat: 'Save hours weekly', desc: 'Write simple scripts to automate repetitive administrative and data entry tasks.' },
+        { iconName: 'TrendingUp', title: 'Beyond Spreadsheets', stat: 'Handle larger data', desc: 'Learn to seamlessly read, filter, and modify datasets that are too large for Excel.' },
+        { iconName: 'Factory', title: 'Immediate Application', stat: 'Practical focus', desc: 'Skip the heavy theory and focus on writing code that solves real-world office problems.' },
+        { iconName: 'Wifi', title: 'Connect Systems', stat: 'API Integrations', desc: 'Write basic scripts to pull data from external web services and APIs automatically.' },
+      ],
+      useCases: [
+        { iconName: 'BarChart', title: 'Reporting Automation', outcome: 'Automated a daily status report generation, saving the team 2 hours per day.' },
+        { iconName: 'ShieldCheck', title: 'Data Cleanup', outcome: 'Wrote a script to parse, clean, and format thousands of customer records in seconds.' },
+        { iconName: 'TrendingUp', title: 'Web Scraping', outcome: 'Automatically gathered competitive pricing data from websites for market analysis.' },
+        { iconName: 'Factory', title: 'File Management', outcome: 'Created a utility tool that bulk-renames and organizes scattered files into neat directories.' },
+      ],
+      topics: [
+        'Python Basics (Variables, Loops, Logic)',
+        'Working with Files (CSV, JSON, Excel)',
+        'Automating Repetitive Tasks',
+        'Introduction to Web Scraping',
+        'Basic API Calls & Web Integrations',
+        'Practical Error Handling & Debugging',
+      ],
+    }
   },
   {
     category: 'ai',
@@ -161,6 +177,12 @@ const modulesData = [
         'Building Automated Data Pipelines',
         'Business Intelligence & Dashboarding',
         'Data Storytelling for Stakeholders',
+      ],
+      gallery: [
+        { src: '/data-viz-dashboard.png', caption: 'Interactive Data Dashboard' },
+        { src: '/time-series-analysis.png', caption: 'Time-Series Forecasting Model' },
+        { src: '/pyspark-processing.png', caption: 'Big Data Processing Pipeline' },
+        { src: '/statistical-testing.png', caption: 'Statistical A/B Testing Results' },
       ],
     }
   },
