@@ -117,9 +117,6 @@ export function ClientsSection() {
             aria-hidden="true"
           />
           <ClientGlobe />
-          <p className="text-center text-xs text-muted-foreground/70 mt-4 tracking-wide">
-            {t.clients?.stats?.countries || 'Countries Served'} · drag to rotate
-          </p>
         </div>
 
         {/* Client logos Embla Slider */}
