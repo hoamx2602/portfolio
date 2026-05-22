@@ -5,6 +5,7 @@ import { Quote, Star } from 'lucide-react'
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { ClientGlobe } from '@/components/client-globe'
 
 const clients = [
   { name: 'TechCorp Industries',   logo: 'TC' },
@@ -104,6 +105,22 @@ export function ClientsSection() {
             {t.clients?.subtitle || 'We partner with forward-thinking organizations across diverse industries'}
           </p>
         </header>
+
+        {/* Interactive Globe */}
+        <div className="mb-16 relative">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle at center, rgba(100,210,210,0.08) 0%, transparent 60%)',
+            }}
+            aria-hidden="true"
+          />
+          <ClientGlobe />
+          <p className="text-center text-xs text-muted-foreground/70 mt-4 tracking-wide">
+            {t.clients?.stats?.countries || 'Countries Served'} · drag to rotate
+          </p>
+        </div>
 
         {/* Client logos Embla Slider */}
         <div 
