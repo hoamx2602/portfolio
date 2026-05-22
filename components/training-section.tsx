@@ -170,14 +170,32 @@ const defaultTrainingModules: TrainingModule[] = [
     level: 'Advanced',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
     thumbnail: '/thumb-data-analytics.png',
-    contentType: 'days',
-    days: [
-      { day: 1, title: 'Advanced Pandas',               topics: ['MultiIndex', 'Time Series Analysis', 'Data Aggregation'] },
-      { day: 2, title: 'Data Visualization',            topics: ['Seaborn', 'Plotly Interactive Charts', 'Dashboard Creation'] },
-      { day: 3, title: 'Statistical Analysis',          topics: ['Hypothesis Testing', 'A/B Testing', 'Correlation Analysis'] },
-      { day: 4, title: 'Big Data Processing',           topics: ['PySpark Basics', 'Distributed Computing', 'Data Pipelines'] },
-      { day: 5, title: 'Real-World Projects',           topics: ['End-to-End Analytics Project', 'Business Intelligence', 'Reporting Automation'] },
-    ],
+    contentType: 'overview',
+    overview: {
+      description: 'Master the art of extracting actionable business intelligence from complex datasets. Elevate your Python skills to analyze time-series data, build interactive dashboards, and process big data at scale.',
+      benefits: [
+        { icon: BarChart, title: 'Data Mastery', stat: 'Deep analytics', desc: 'Uncover hidden trends and anomalies using advanced statistical methods and time-series analysis.' },
+        { icon: Wifi, title: 'Interactive Dashboards', stat: 'Visualize insights', desc: 'Transform raw data into compelling, interactive visual narratives that drive executive decisions.' },
+        { icon: Factory, title: 'Big Data Ready', stat: 'Scale processing', desc: 'Process millions of rows efficiently using distributed computing frameworks like PySpark.' },
+        { icon: Zap, title: 'Operational Efficiency', stat: 'Automate reporting', desc: 'Replace manual spreadsheet workflows with automated, reproducible Python data pipelines.' },
+      ],
+      useCases: [
+        { icon: TrendingUp, title: 'Financial Forecasting', outcome: 'Built a robust time-series model to predict quarterly revenue with 94% accuracy.' },
+        { icon: BarChart, title: 'Supply Chain BI', outcome: 'Developed an interactive dashboard tracking global logistics KPIs in real-time.' },
+        { icon: ShieldCheck, title: 'A/B Testing Automation', outcome: 'Automated statistical significance calculations for 100+ concurrent marketing campaigns.' },
+        { icon: Factory, title: 'Legacy Migration', outcome: 'Replaced 50+ manual Excel reports with a single, highly-optimized Python data pipeline.' },
+      ],
+      topics: [
+        'Advanced Pandas & Data Wrangling',
+        'Statistical Analysis & Hypothesis Testing',
+        'Interactive Visualization (Plotly, Dash)',
+        'Time-Series Forecasting',
+        'Big Data Processing with PySpark',
+        'Building Automated Data Pipelines',
+        'Business Intelligence & Dashboarding',
+        'Data Storytelling for Stakeholders',
+      ],
+    }
   },
   {
     id: 'data-management-ai',
