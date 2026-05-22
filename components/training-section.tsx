@@ -580,7 +580,7 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
   useEffect(() => {
     async function fetchModules() {
       try {
-        const data = await client.fetch(`*[_type == "trainingModule"]`)
+        const data = await client.fetch(`*[_type == "trainingModule"] | order(_createdAt asc)`)
         if (data && data.length > 0) {
           const iconMap: Record<string, LucideIcon> = { TrendingUp, ShieldCheck, BarChart, Zap, Factory, Wifi, CheckCircle }
           const formatted = data.map((m: any) => {
