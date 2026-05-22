@@ -650,6 +650,12 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
               if (overview.useCases) {
                 overview.useCases = overview.useCases.map((u: any) => ({ ...u, icon: iconMap[u.iconName] || CheckCircle }));
               }
+              if (overview.gallery) {
+                overview.gallery = overview.gallery.map((g: any) => ({
+                  ...g,
+                  src: g.image ? urlForImage(g.image)?.url() : g.src
+                }))
+              }
             }
             return {
               ...m,
