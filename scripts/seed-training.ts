@@ -98,19 +98,37 @@ const modulesData = [
   },
   {
     category: 'ai',
-    title: 'ML Hands-On',
+    title: 'Machine Learning Hands-On',
     duration: '5 days',
     level: 'Intermediate',
     color: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
     thumbnail: '/thumb-ml.png',
-    contentType: 'days',
-    days: [
-      { day: 1, title: 'ML Fundamentals', topics: ['Supervised vs Unsupervised', 'Model Evaluation', 'Train/Test Split'] },
-      { day: 2, title: 'Regression Techniques', topics: ['Linear Regression', 'Polynomial Regression', 'Regularization'] },
-      { day: 3, title: 'Classification Algorithms', topics: ['Logistic Regression', 'Decision Trees', 'Random Forest'] },
-      { day: 4, title: 'Clustering & Dimensionality', topics: ['K-Means Clustering', 'PCA', 'Feature Selection'] },
-      { day: 5, title: 'Model Deployment', topics: ['Model Serialization', 'API Development', 'Production Best Practices'] },
-    ],
+    contentType: 'overview',
+    overview: {
+      description: 'A practical, code-first deep dive into building, training, and deploying Machine Learning models. Master supervised and unsupervised learning, evaluate model performance, and bridge the gap from prototype to scalable production pipelines.',
+      benefits: [
+        { iconName: 'Zap', title: 'Fast ML Implementation', stat: 'Quick deployment', desc: 'Rapidly train, test, and deploy powerful regression and classification models.' },
+        { iconName: 'BarChart', title: 'Reduce Error Rates', stat: 'Higher precision', desc: 'Master feature engineering and hyperparameter tuning to boost model accuracy.' },
+        { iconName: 'Factory', title: 'Production Readiness', stat: 'Robust deployment', desc: 'Learn to serialize, package, and serve your models via highly available APIs.' },
+        { iconName: 'TrendingUp', title: 'Unlock Hidden Patterns', stat: 'Data discovery', desc: 'Apply clustering algorithms like K-Means and PCA to find insights in unlabeled data.' },
+      ],
+      useCases: [
+        { iconName: 'ShieldCheck', title: 'Fraud Detection', outcome: 'Implemented a robust classification pipeline to automatically flag anomalous transactions.' },
+        { iconName: 'TrendingUp', title: 'Dynamic Pricing', outcome: 'Deployed a regression model that optimized e-commerce pricing in real-time.' },
+        { iconName: 'Wifi', title: 'Customer Segmentation', outcome: 'Used K-Means clustering to create highly targeted, personalized marketing campaigns.' },
+        { iconName: 'BarChart', title: 'Churn Prediction', outcome: 'Built a Random Forest model that successfully reduced customer churn by 15%.' },
+      ],
+      topics: [
+        'Supervised vs Unsupervised Learning',
+        'Regression & Classification Algorithms',
+        'Model Evaluation & Metrics (Accuracy, F1, ROC)',
+        'Feature Engineering & Data Preprocessing',
+        'Hyperparameter Tuning (Grid & Random Search)',
+        'Dimensionality Reduction (PCA)',
+        'Model Serialization (Pickle/Joblib)',
+        'Deploying ML Models as REST APIs',
+      ],
+    }
   },
   {
     category: 'ai',
