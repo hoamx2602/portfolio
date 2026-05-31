@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Send, CheckCircle2, Calendar, Loader2, AlertCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, CheckCircle2, Calendar, Loader2, AlertCircle, X, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -10,10 +10,44 @@ import { useLanguage } from '@/components/language-context'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
-export function ContactSection() {
+type Props = {
+  bookingUrl?: string
+}
+
+// Services known to block iframe embedding via X-Frame-Options / CSP
+const IFRAME_BLOCKED_HOSTS = [
+  'calendar.app.google',
+  'calendar.google.com',
+  'outlook.office.com',
+  'outlook.live.com',
+  'outlook.office365.com',
+  'teams.microsoft.com',
+  'meet.google.com',
+]
+
+function supportsIframe(url: string) {
+  try {
+    const host = new URL(url).hostname
+    return !IFRAME_BLOCKED_HOSTS.some((blocked) => host.includes(blocked))
+  } catch {
+    return false
+  }
+}
+
+export function ContactSection({ bookingUrl }: Props) {
   const { t } = useLanguage()
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [bookingOpen, setBookingOpen] = useState(false)
+
+  const handleBooking = () => {
+    if (!bookingUrl) return
+    if (supportsIframe(bookingUrl)) {
+      setBookingOpen(true)
+    } else {
+      window.open(bookingUrl, '_blank', 'noopener,noreferrer')
+    }
+  }
 
   const contactInfo = [
     { icon: Mail,   label: 'Email',   value: t.contact.info.email,   href: `mailto:${t.contact.info.email}` },
@@ -245,7 +279,10 @@ export function ContactSection() {
               </p>
               <Button
                 variant="outline"
-                className="gap-2 border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all duration-300"
+                onClick={handleBooking}
+                disabled={!bookingUrl}
+                title={!bookingUrl ? 'Booking link not configured yet' : undefined}
+                className="gap-2 border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Calendar className="w-4 h-4" aria-hidden="true" />
                 Book a Free Call
@@ -254,6 +291,66 @@ export function ContactSection() {
           </div>
         </div>
       </div>
+
+      {/* Booking modal */}
+      {bookingOpen && bookingUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Book a free call"
+        >
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+            onClick={() => setBookingOpen(false)}
+          />
+
+          {/* Modal */}
+          <div className="relative z-10 w-full max-w-3xl bg-card border border-border rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+            style={{ height: 'min(80vh, 700px)' }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+                  <Calendar className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Schedule a Consultation</p>
+                  <p className="text-xs text-muted-foreground">Book a free 30-minute call</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href={bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-secondary"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Open in tab
+                </a>
+                <button
+                  onClick={() => setBookingOpen(false)}
+                  className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* iframe */}
+            <iframe
+              src={bookingUrl}
+              title="Book a free call"
+              className="flex-1 w-full border-none"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }

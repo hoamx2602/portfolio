@@ -31,10 +31,16 @@ async function patchSettings() {
     contact: true,
   }
 
+  // Set to your Calendly / Cal.com / booking URL
+  const bookingUrl = process.env.BOOKING_URL ?? ''
+
+  const patch: Record<string, unknown> = { sections }
+  if (bookingUrl) patch.bookingUrl = bookingUrl
+
   if (existing?._id) {
     await client
       .patch(existing._id)
-      .set({ sections })
+      .set(patch)
       .commit()
     console.log(`✓ Patched siteSettings (${existing._id})`)
   } else {

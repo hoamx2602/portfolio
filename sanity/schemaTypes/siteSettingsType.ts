@@ -16,6 +16,7 @@ export const siteSettingsType: SchemaTypeDefinition = {
   groups: [
     { name: 'appearance', title: 'Appearance' },
     { name: 'sections', title: 'Section Visibility' },
+    { name: 'contact', title: 'Contact & Booking' },
   ],
   fields: [
     // ── Appearance ────────────────────────────────────────────────────────────
@@ -81,6 +82,17 @@ export const siteSettingsType: SchemaTypeDefinition = {
         sectionToggle('blog', 'Blog'),
         sectionToggle('contact', 'Contact'),
       ],
+    },
+    // ── Contact & Booking ────────────────────────────────────────────────────
+    {
+      name: 'bookingUrl',
+      title: 'Booking / Calendly URL',
+      group: 'contact',
+      type: 'url',
+      description:
+        'Link for the "Book a Free Call" button. Supports Calendly, Cal.com, Google Calendar, or any scheduling URL.',
+      validation: (rule) =>
+        rule.uri({ allowRelative: false, scheme: ['http', 'https'] }),
     },
   ],
 }

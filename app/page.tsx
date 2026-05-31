@@ -30,18 +30,20 @@ type Sections = {
   contact?: boolean
 }
 
-const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{ sections }`
+const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{ sections, bookingUrl }`
 
 export default async function Home() {
   let sections: Sections = {}
+  let bookingUrl: string | undefined
 
   try {
-    const data = await client.fetch<{ sections?: Sections }>(
+    const data = await client.fetch<{ sections?: Sections; bookingUrl?: string }>(
       SETTINGS_QUERY,
       {},
       { next: { revalidate: 30 } }
     )
-    sections = data?.sections ?? {}
+    sections   = data?.sections   ?? {}
+    bookingUrl = data?.bookingUrl ?? undefined
   } catch {
     // fallback: show all sections
   }
@@ -66,7 +68,7 @@ export default async function Home() {
             {show('team') && <TeamSection />}
             {show('clients') && <ClientsSection />}
             {show('blog') && <BlogSection />}
-            {show('contact') && <ContactSection />}
+            {show('contact') && <ContactSection bookingUrl={bookingUrl} />}
           </main>
           <Footer />
         </div>
