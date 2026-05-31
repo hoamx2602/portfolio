@@ -34,7 +34,12 @@ async function patchSettings() {
   // Set to your Calendly / Cal.com / booking URL
   const bookingUrl = process.env.BOOKING_URL ?? ''
 
-  const patch: Record<string, unknown> = { sections }
+  const patch: Record<string, unknown> = {
+    sections,
+    contactEmail:   process.env.CONTACT_EMAIL   || 'contact@techconsult.com',
+    contactPhone:   process.env.CONTACT_PHONE   || '+44 7700 900123',
+    contactAddress: process.env.CONTACT_ADDRESS || 'Bradford, West Yorkshire, UK',
+  }
   if (bookingUrl) patch.bookingUrl = bookingUrl
 
   if (existing?._id) {

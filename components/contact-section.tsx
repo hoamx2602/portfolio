@@ -10,8 +10,15 @@ import { useLanguage } from '@/components/language-context'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
+type ContactInfo = {
+  email?:   string
+  phone?:   string
+  address?: string
+}
+
 type Props = {
-  bookingUrl?: string
+  bookingUrl?:  string
+  contactInfo?: ContactInfo
 }
 
 // Services known to block iframe embedding via X-Frame-Options / CSP
@@ -34,7 +41,7 @@ function supportsIframe(url: string) {
   }
 }
 
-export function ContactSection({ bookingUrl }: Props) {
+export function ContactSection({ bookingUrl, contactInfo: cms }: Props) {
   const { t } = useLanguage()
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -49,10 +56,15 @@ export function ContactSection({ bookingUrl }: Props) {
     }
   }
 
+  // CMS values take priority; fall back to i18n defaults when not configured
+  const email   = cms?.email   || t.contact.info.email
+  const phone   = cms?.phone   || t.contact.info.phone
+  const address = cms?.address || t.contact.info.address
+
   const contactInfo = [
-    { icon: Mail,   label: 'Email',   value: t.contact.info.email,   href: `mailto:${t.contact.info.email}` },
-    { icon: Phone,  label: 'Phone',   value: t.contact.info.phone,   href: `tel:${t.contact.info.phone}` },
-    { icon: MapPin, label: 'Address', value: t.contact.info.address, href: '#' },
+    { icon: Mail,   label: 'Email',   value: email,   href: `mailto:${email}` },
+    { icon: Phone,  label: 'Phone',   value: phone,   href: `tel:${phone}`    },
+    { icon: MapPin, label: 'Address', value: address, href: '#'               },
   ]
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

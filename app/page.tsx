@@ -30,22 +30,39 @@ type Sections = {
   contact?: boolean
 }
 
-const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{ sections, bookingUrl }`
+type ContactInfo = {
+  email?:   string
+  phone?:   string
+  address?: string
+}
+
+const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
+  sections,
+  bookingUrl,
+  "contact": {
+    "email":   contactEmail,
+    "phone":   contactPhone,
+    "address": contactAddress
+  }
+}`
 
 export default async function Home() {
-  let sections: Sections = {}
-  let bookingUrl: string | undefined
+  let sections:    Sections    = {}
+  let bookingUrl:  string | undefined
+  let contactInfo: ContactInfo = {}
 
   try {
-    const data = await client.fetch<{ sections?: Sections; bookingUrl?: string }>(
-      SETTINGS_QUERY,
-      {},
-      { next: { revalidate: 30 } }
-    )
-    sections   = data?.sections   ?? {}
-    bookingUrl = data?.bookingUrl ?? undefined
+    const data = await client.fetch<{
+      sections?:   Sections
+      bookingUrl?: string
+      contact?:    ContactInfo
+    }>(SETTINGS_QUERY, {}, { next: { revalidate: 30 } })
+
+    sections    = data?.sections   ?? {}
+    bookingUrl  = data?.bookingUrl ?? undefined
+    contactInfo = data?.contact    ?? {}
   } catch {
-    // fallback: show all sections
+    // fallback: show all sections, no contact override
   }
 
   // undefined = not configured → show by default; false = explicitly hidden
@@ -68,7 +85,7 @@ export default async function Home() {
             {show('team') && <TeamSection />}
             {show('clients') && <ClientsSection />}
             {show('blog') && <BlogSection />}
-            {show('contact') && <ContactSection bookingUrl={bookingUrl} />}
+            {show('contact') && <ContactSection bookingUrl={bookingUrl} contactInfo={contactInfo} />}
           </main>
           <Footer />
         </div>
