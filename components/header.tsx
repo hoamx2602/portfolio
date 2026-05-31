@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useLanguage } from '@/components/language-context'
-import { type Locale, locales, isRTL } from '@/lib/i18n'
+import { type Locale, locales } from '@/lib/i18n'
 
 const languageLabels: Record<Locale, string> = {
   en: 'English',
@@ -20,21 +20,42 @@ const languageLabels: Record<Locale, string> = {
   ar: 'العربية',
 }
 
-export function Header() {
+type SectionKey =
+  | 'about'
+  | 'services'
+  | 'responsibleAI'
+  | 'training'
+  | 'projects'
+  | 'team'
+  | 'clients'
+  | 'blog'
+  | 'contact'
+
+type VisibleSections = Partial<Record<SectionKey, boolean>>
+
+type Props = {
+  visibleSections?: VisibleSections
+}
+
+export function Header({ visibleSections = {} }: Props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { locale, setLocale, t } = useLanguage()
 
-  const navItems = useMemo(() => [
-    { href: '#about', label: t.nav.about },
-    { href: '#services', label: t.nav.services },
-    { href: '#responsible-ai', label: t.nav.responsibleAI },
-    { href: '#training', label: t.nav.training },
-    { href: '#projects', label: t.nav.projects },
-    { href: '#team', label: t.nav.team },
-    { href: '#clients', label: t.nav.clients },
-    { href: '/blog', label: t.nav.blog },
-    { href: '#contact', label: t.nav.contact },
-  ], [t])
+  const navItems = useMemo(() => {
+    const show = (key: SectionKey) => visibleSections[key] !== false
+
+    return [
+      { href: '#about',          label: t.nav.about,          key: 'about'          as SectionKey },
+      { href: '#services',       label: t.nav.services,       key: 'services'       as SectionKey },
+      { href: '#responsible-ai', label: t.nav.responsibleAI,  key: 'responsibleAI'  as SectionKey },
+      { href: '#training',       label: t.nav.training,       key: 'training'       as SectionKey },
+      { href: '#projects',       label: t.nav.projects,       key: 'projects'       as SectionKey },
+      { href: '#team',           label: t.nav.team,           key: 'team'           as SectionKey },
+      { href: '#clients',        label: t.nav.clients,        key: 'clients'        as SectionKey },
+      { href: '/blog',           label: t.nav.blog,           key: 'blog'           as SectionKey },
+      { href: '#contact',        label: t.nav.contact,        key: 'contact'        as SectionKey },
+    ].filter((item) => show(item.key))
+  }, [t, visibleSections])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
