@@ -32,7 +32,7 @@ export function Header() {
     { href: '#projects', label: t.nav.projects },
     { href: '#team', label: t.nav.team },
     { href: '#clients', label: t.nav.clients },
-    { href: '#blog', label: t.nav.blog },
+    { href: '/blog', label: t.nav.blog },
     { href: '#contact', label: t.nav.contact },
   ], [t])
 
