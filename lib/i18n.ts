@@ -18,6 +18,7 @@ export const translations = {
       projects: 'Case Studies',
       team: 'Team',
       clients: 'Clients',
+      blog: 'Blog',
       contact: 'Contact',
     },
     hero: {
@@ -156,6 +157,13 @@ export const translations = {
         address: '123 Innovation Drive, Tech City, TC 12345',
       },
     },
+    blog: {
+      tagline: 'Insights & Perspectives',
+      title: 'From Our Blog',
+      subtitle: 'Practical thinking on AI, industrial technology, and responsible innovation from our consultants.',
+      readMore: 'Read More',
+      viewAll: 'View All Articles',
+    },
     footer: {
       copyright: 'All rights reserved.',
       privacy: 'Privacy Policy',
@@ -168,10 +176,12 @@ export const translations = {
     nav: {
       about: 'Nosotros',
       services: 'Servicios',
+      responsibleAI: 'IA Responsable',
       training: 'Capacitacion',
       projects: 'Proyectos',
       team: 'Equipo',
       clients: 'Clientes',
+      blog: 'Blog',
       contact: 'Contacto',
     },
     hero: {
@@ -289,6 +299,13 @@ export const translations = {
         address: '123 Innovation Drive, Tech City, TC 12345',
       },
     },
+    blog: {
+      tagline: 'Ideas y Perspectivas',
+      title: 'Desde Nuestro Blog',
+      subtitle: 'Reflexiones practicas sobre IA, tecnologia industrial e innovacion responsable de nuestros consultores.',
+      readMore: 'Leer Mas',
+      viewAll: 'Ver Todos los Articulos',
+    },
     footer: {
       copyright: 'Todos los derechos reservados.',
       privacy: 'Politica de Privacidad',
@@ -306,6 +323,7 @@ export const translations = {
       projects: 'Etudes de Cas',
       team: 'Equipe',
       clients: 'Clients',
+      blog: 'Blog',
       contact: 'Contact',
     },
     hero: {
@@ -423,6 +441,13 @@ export const translations = {
         address: '123 Innovation Drive, Tech City, TC 12345',
       },
     },
+    blog: {
+      tagline: 'Idees et Perspectives',
+      title: 'Notre Blog',
+      subtitle: 'Reflexions pratiques sur l\'IA, la technologie industrielle et l\'innovation responsable par nos consultants.',
+      readMore: 'Lire la Suite',
+      viewAll: 'Voir Tous les Articles',
+    },
     footer: {
       copyright: 'Tous droits reserves.',
       privacy: 'Politique de Confidentialite',
@@ -440,6 +465,7 @@ export const translations = {
       projects: 'دراسات الحالة',
       team: 'الفريق',
       clients: 'العملاء',
+      blog: 'المدونة',
       contact: 'تواصل معنا',
     },
     hero: {
@@ -556,6 +582,13 @@ export const translations = {
         phone: '+1 (555) 123-4567',
         address: '123 Innovation Drive, Tech City, TC 12345',
       },
+    },
+    blog: {
+      tagline: 'رؤى ومنظورات',
+      title: 'من مدونتنا',
+      subtitle: 'أفكار عملية حول الذكاء الاصطناعي والتكنولوجيا الصناعية والابتكار المسؤول من مستشارينا.',
+      readMore: 'اقرأ المزيد',
+      viewAll: 'عرض جميع المقالات',
     },
     footer: {
       copyright: 'جميع الحقوق محفوظة.',

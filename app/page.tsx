@@ -12,6 +12,7 @@ import { TrainingSection } from '@/components/training-section'
 import { ProjectsSection } from '@/components/projects-section'
 import { TeamSection } from '@/components/team-section'
 import { ClientsSection } from '@/components/clients-section'
+import { BlogSection } from '@/components/blog-section'
 import { ContactSection } from '@/components/contact-section'
 import { Footer } from '@/components/footer'
 import { ParticleCanvas } from '@/components/particle-canvas'
@@ -33,6 +34,7 @@ export default function Home() {
             <ProjectsSection />
             <TeamSection />
             <ClientsSection />
+            <BlogSection />
             <ContactSection />
           </main>
           <Footer />
