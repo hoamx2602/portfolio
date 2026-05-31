@@ -139,10 +139,24 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
       aria-labelledby="project-modal-title"
     >
       <div
-        className="bg-card border border-border rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
+        className="bg-card border border-border rounded-2xl max-w-4xl w-full max-h-[90vh] relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
         role="document"
       >
+        {/* Close button — outside scroll area, always visible */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-3 right-3 z-20 bg-background/60 hover:bg-background/90 backdrop-blur-sm border border-border/40 shadow-md"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <X className="w-4 h-4" aria-hidden="true" />
+        </Button>
+
+        {/* Scrollable content — min-h-0 required for overflow to work inside flex */}
+        <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl">
+
         {/* Hero banner */}
         <div
           className="h-52 relative flex items-end overflow-hidden rounded-t-2xl"
@@ -168,16 +182,6 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               {project.iconLabel}
             </span>
           </div>
-          {/* Close */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 bg-background/40 hover:bg-background/70"
-            onClick={onClose}
-            aria-label="Close modal"
-          >
-            <X className="w-5 h-5" aria-hidden="true" />
-          </Button>
           {/* Title */}
           <div className="relative z-10 p-6">
             <Badge variant="outline" className={`mb-2 ${project.categoryColor}`}>
@@ -292,6 +296,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             <Button variant="outline" onClick={onClose}>Close</Button>
           </div>
         </div>
+        </div>{/* end flex-1 scrollable */}
       </div>
     </div>
   )

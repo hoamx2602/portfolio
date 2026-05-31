@@ -562,11 +562,22 @@ function TrainingModal({ module, onClose }: { module: TrainingModule; onClose: (
       aria-modal="true"
     >
       <div
-        className="bg-card border border-border rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative flex flex-col"
+        className="bg-card border border-border rounded-2xl max-w-5xl w-full max-h-[90vh] relative flex flex-col"
         onClick={(e) => e.stopPropagation()}
         role="document"
       >
-        {/* Header Banner */}
+        {/* Close button — outside scroll area, always visible */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-3 right-3 z-20 bg-background/60 hover:bg-background/90 backdrop-blur-sm border border-border/40 shadow-md"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <X className="w-4 h-4" />
+        </Button>
+
+        {/* Header Banner — shrink-0 stays fixed, does not scroll */}
         <div className="relative h-48 sm:h-64 shrink-0 rounded-t-2xl overflow-hidden border-b border-border">
           <Image
             src={module.thumbnail}
@@ -576,15 +587,6 @@ function TrainingModal({ module, onClose }: { module: TrainingModule; onClose: (
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-4 right-4 bg-background/40 hover:bg-background/70 backdrop-blur-md"
-            onClick={onClose}
-          >
-            <X className="w-5 h-5" />
-          </Button>
 
           <div className="absolute bottom-6 left-6 right-6">
             <div className="flex items-center gap-3 flex-wrap mb-3">
@@ -613,8 +615,8 @@ function TrainingModal({ module, onClose }: { module: TrainingModule; onClose: (
           </div>
         </div>
 
-        {/* Modal Content Body */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Modal Content Body — flex-1 fills remaining height, min-h-0 allows overflow to work in flex */}
+        <div className="flex-1 min-h-0 overflow-y-auto">
           {module.contentType === 'overview' ? (
             <OverviewContent overview={module.overview} />
           ) : (
