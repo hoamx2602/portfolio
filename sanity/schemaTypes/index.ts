@@ -4,7 +4,8 @@ import { projectType } from './projectType'
 import { teamMemberType } from './teamMemberType'
 import { siteSettingsType } from './siteSettingsType'
 import { blogPostType } from './blogPostType'
+import { legalPageType } from './legalPageType'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [trainingModuleType, projectType, teamMemberType, siteSettingsType, blogPostType],
+  types: [trainingModuleType, projectType, teamMemberType, siteSettingsType, blogPostType, legalPageType],
 }

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "seed:blog": "tsx scripts/seed-blog.ts",
-    "patch:settings": "tsx scripts/patch-settings.ts"
+    "patch:settings": "tsx scripts/patch-settings.ts",
+    "seed:legal": "tsx scripts/seed-legal.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

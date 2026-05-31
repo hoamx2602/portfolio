@@ -1,23 +1,33 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Github, Linkedin, Twitter, Shield } from 'lucide-react'
 import { useLanguage } from '@/components/language-context'
+import { client } from '@/sanity/lib/client'
+
+type LegalLink = { title: string; slug: string }
+
+const LEGAL_QUERY = `*[_type == "legalPage"] | order(title asc) { title, "slug": slug.current }`
 
 export function Footer() {
   const { t } = useLanguage()
+  const [legalLinks, setLegalLinks] = useState<LegalLink[]>([])
+
+  useEffect(() => {
+    client.fetch<LegalLink[]>(LEGAL_QUERY).then((data) => setLegalLinks(data ?? []))
+  }, [])
 
   const footerLinks = {
     services: ['AI Consulting', 'Industrial IoT', 'RPA & Automation', 'Responsible AI', 'AI Governance'],
     training: ['Executive AI Training', 'Technical AI & IIoT', 'Responsible AI Training', 'RPA & Automation', 'View All Programmes'],
-    company: [t.nav.about, 'Case Studies', 'Insights & Blog', 'Careers', t.nav.contact],
-    legal: [t.footer.privacy, t.footer.terms, 'Cookie Policy', 'GDPR Statement'],
+    company:  [t.nav.about, 'Case Studies', 'Insights & Blog', 'Careers', t.nav.contact],
   }
 
   const socialLinks = [
-    { icon: Twitter,  href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Github,   href: '#', label: 'GitHub' },
+    { icon: Twitter,  href: '#', label: 'Twitter'  },
+    { icon: Linkedin, href: '#', label: 'LinkedIn'  },
+    { icon: Github,   href: '#', label: 'GitHub'    },
   ]
 
   return (
@@ -71,36 +81,99 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Nav columns */}
-          {[
-            { label: t.nav.services,  links: footerLinks.services,  anchor: '#services'  },
-            { label: t.nav.training,  links: footerLinks.training,  anchor: '#training'  },
-            { label: 'Company',       links: footerLinks.company,   anchor: '#'          },
-            { label: 'Legal',         links: footerLinks.legal,     anchor: '#'          },
-          ].map(({ label, links, anchor }) => (
-            <nav key={label} aria-label={`${label} navigation`}>
-              <h4 className="font-semibold text-foreground mb-4 text-xs uppercase tracking-widest">{label}</h4>
-              <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link}>
+          {/* Services */}
+          <nav aria-label="Services navigation">
+            <h4 className="font-semibold text-foreground mb-4 text-xs uppercase tracking-widest">
+              {t.nav.services}
+            </h4>
+            <ul className="space-y-2.5">
+              {footerLinks.services.map((link) => (
+                <li key={link}>
+                  <Link
+                    href="#services"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Training */}
+          <nav aria-label="Training navigation">
+            <h4 className="font-semibold text-foreground mb-4 text-xs uppercase tracking-widest">
+              {t.nav.training}
+            </h4>
+            <ul className="space-y-2.5">
+              {footerLinks.training.map((link) => (
+                <li key={link}>
+                  <Link
+                    href="#training"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Company */}
+          <nav aria-label="Company navigation">
+            <h4 className="font-semibold text-foreground mb-4 text-xs uppercase tracking-widest">
+              Company
+            </h4>
+            <ul className="space-y-2.5">
+              {footerLinks.company.map((link) => (
+                <li key={link}>
+                  <Link
+                    href="#"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                  >
+                    {link}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Legal — fetched from Sanity */}
+          <nav aria-label="Legal navigation">
+            <h4 className="font-semibold text-foreground mb-4 text-xs uppercase tracking-widest">
+              Legal
+            </h4>
+            <ul className="space-y-2.5">
+              {legalLinks.length > 0 ? (
+                legalLinks.map((page) => (
+                  <li key={page.slug}>
                     <Link
-                      href={anchor}
+                      href={`/legal/${page.slug}`}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
                     >
-                      {link}
+                      {page.title}
                     </Link>
                   </li>
-                ))}
-              </ul>
-            </nav>
-          ))}
+                ))
+              ) : (
+                // Skeleton while loading
+                Array.from({ length: 4 }).map((_, i) => (
+                  <li key={i}>
+                    <div className="h-4 bg-muted/40 rounded animate-pulse" style={{ width: `${60 + i * 10}%` }} />
+                  </li>
+                ))
+              )}
+            </ul>
+          </nav>
+
         </div>
 
         {/* Bottom bar */}
         <div className="border-t border-border/50 pt-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              <span aria-label="Copyright">&copy;</span> {new Date().getFullYear()} TechConsult. {t.footer.copyright}
+              <span aria-label="Copyright">&copy;</span> {new Date().getFullYear()} TechConsult.{' '}
+              {t.footer.copyright}
             </p>
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border"
@@ -110,7 +183,9 @@ export function Footer() {
               }}
             >
               <Shield className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
-              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">{t.footer.gdprNote}</span>
+              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                {t.footer.gdprNote}
+              </span>
             </div>
           </div>
         </div>
