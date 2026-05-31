@@ -3,6 +3,8 @@ import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { client } from '@/sanity/lib/client'
 import { ThemeProvider } from '@/components/theme-provider'
+import { SiteSettingsProvider } from '@/components/site-settings-context'
+import { getSiteSettings } from '@/sanity/lib/settings'
 import './globals.css'
 
 const inter = Inter({ 
@@ -200,14 +202,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const siteSettings = await getSiteSettings()
+
+  // Theme is resolved separately (needed before hydration for ThemeProvider)
   let globalTheme = 'system'
   try {
-    const settings = await client.fetch(`*[_type == "siteSettings"][0]`, {}, { next: { revalidate: 0 } })
-    if (settings && settings.theme) {
-      globalTheme = settings.theme
-    }
-  } catch (error) {
-    console.error("Failed to fetch siteSettings from Sanity", error)
+    const raw = await client.fetch<{ theme?: string }>(
+      `*[_type == "siteSettings"][0]{ theme }`,
+      {},
+      { next: { revalidate: 30 } }
+    )
+    if (raw?.theme) globalTheme = raw.theme
+  } catch {
+    // keep 'system'
   }
 
   return (
@@ -230,8 +237,10 @@ export default async function RootLayout({
           forcedTheme={globalTheme !== 'system' ? globalTheme : undefined}
           disableTransitionOnChange
         >
-          {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
+          <SiteSettingsProvider value={siteSettings}>
+            {children}
+            {process.env.NODE_ENV === 'production' && <Analytics />}
+          </SiteSettingsProvider>
         </ThemeProvider>
       </body>
     </html>

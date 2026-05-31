@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useLanguage } from '@/components/language-context'
+import { useSiteSettings } from '@/components/site-settings-context'
 import { type Locale, locales } from '@/lib/i18n'
 
 const languageLabels: Record<Locale, string> = {
@@ -31,18 +33,19 @@ type SectionKey =
   | 'blog'
   | 'contact'
 
-type VisibleSections = Partial<Record<SectionKey, boolean>>
-
-type Props = {
-  visibleSections?: VisibleSections
-}
-
-export function Header({ visibleSections = {} }: Props) {
+export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { locale, setLocale, t } = useLanguage()
+  const { sections } = useSiteSettings()
+  const pathname = usePathname()
+
+  // On sub-pages (e.g. /blog), hash links must be prefixed with / so the
+  // browser navigates to /#about instead of appending to the current URL.
+  const resolve = (href: string) =>
+    href.startsWith('#') && pathname !== '/' ? `/${href}` : href
 
   const navItems = useMemo(() => {
-    const show = (key: SectionKey) => visibleSections[key] !== false
+    const show = (key: SectionKey) => sections[key] !== false
 
     return [
       { href: '#about',          label: t.nav.about,          key: 'about'          as SectionKey },
@@ -55,7 +58,7 @@ export function Header({ visibleSections = {} }: Props) {
       { href: '/blog',           label: t.nav.blog,           key: 'blog'           as SectionKey },
       { href: '#contact',        label: t.nav.contact,        key: 'contact'        as SectionKey },
     ].filter((item) => show(item.key))
-  }, [t, visibleSections])
+  }, [t, sections])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
