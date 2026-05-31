@@ -1,16 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Send, CheckCircle2, Calendar } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, CheckCircle2, Calendar, Loader2, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { useLanguage } from '@/components/language-context'
 
+type Status = 'idle' | 'loading' | 'success' | 'error'
+
 export function ContactSection() {
   const { t } = useLanguage()
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
 
   const contactInfo = [
     { icon: Mail,   label: 'Email',   value: t.contact.info.email,   href: `mailto:${t.contact.info.email}` },
@@ -18,10 +21,37 @@ export function ContactSection() {
     { icon: MapPin, label: 'Address', value: t.contact.info.address, href: '#' },
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 4000)
+    setStatus('loading')
+    setErrorMsg('')
+
+    const form = e.currentTarget
+    const data = {
+      name:    (form.elements.namedItem('name')    as HTMLInputElement).value,
+      email:   (form.elements.namedItem('email')   as HTMLInputElement).value,
+      company: (form.elements.namedItem('company') as HTMLInputElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        setErrorMsg(json.error ?? 'Something went wrong. Please try again.')
+        setStatus('error')
+        return
+      }
+      setStatus('success')
+      form.reset()
+    } catch {
+      setErrorMsg('Network error. Please check your connection and try again.')
+      setStatus('error')
+    }
   }
 
   return (
@@ -58,7 +88,7 @@ export function ContactSection() {
               aria-hidden="true"
             />
 
-            {submitted ? (
+            {status === 'success' ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12 gap-4">
                 <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
                   <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
@@ -67,9 +97,25 @@ export function ContactSection() {
                 <p className="text-muted-foreground text-sm max-w-xs">
                   Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                 </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-muted-foreground mt-2"
+                  onClick={() => setStatus('idle')}
+                >
+                  Send another message
+                </Button>
               </div>
             ) : (
               <form className="space-y-5" aria-label="Contact form" onSubmit={handleSubmit}>
+                {/* Error banner */}
+                {status === 'error' && (
+                  <div className="flex items-start gap-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+                    <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                    <span>{errorMsg}</span>
+                  </div>
+                )}
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <Label htmlFor="contact-name">{t.contact.form.name}</Label>
@@ -78,6 +124,7 @@ export function ContactSection() {
                       name="name"
                       placeholder="John Doe"
                       required
+                      disabled={status === 'loading'}
                       autoComplete="name"
                       className="bg-background/60 border-border/60 focus:border-primary/60 transition-colors"
                     />
@@ -90,6 +137,7 @@ export function ContactSection() {
                       type="email"
                       placeholder="john@company.com"
                       required
+                      disabled={status === 'loading'}
                       autoComplete="email"
                       className="bg-background/60 border-border/60 focus:border-primary/60 transition-colors"
                     />
@@ -102,6 +150,7 @@ export function ContactSection() {
                     id="contact-company"
                     name="company"
                     placeholder="Your Company"
+                    disabled={status === 'loading'}
                     autoComplete="organization"
                     className="bg-background/60 border-border/60 focus:border-primary/60 transition-colors"
                   />
@@ -115,21 +164,27 @@ export function ContactSection() {
                     placeholder="Tell us about your project or training needs..."
                     rows={5}
                     required
+                    disabled={status === 'loading'}
                     className="bg-background/60 border-border/60 focus:border-primary/60 transition-colors resize-none"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full gap-2 h-12 text-base relative overflow-hidden group"
+                  disabled={status === 'loading'}
+                  className="w-full gap-2 h-12 text-base relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
                     background: 'linear-gradient(135deg, oklch(0.72 0.15 185), oklch(0.60 0.14 200))',
                     boxShadow: '0 0 20px rgba(100,210,210,0.18)',
                   }}
                 >
                   <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <Send className="w-4 h-4" aria-hidden="true" />
-                  {t.contact.form.send}
+                  {status === 'loading' ? (
+                    <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Send className="w-4 h-4" aria-hidden="true" />
+                  )}
+                  {status === 'loading' ? 'Sending…' : t.contact.form.send}
                 </Button>
               </form>
             )}
