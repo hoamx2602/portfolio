@@ -19,35 +19,42 @@ const geistMono = Geist_Mono({
   display: 'swap',
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://techconsult.com'
-const siteName = 'TechConsult'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skilpex.com'
+const siteName = 'Skilpex'
+
+const defaultTitle       = 'Skilpex | AI, IIoT & RPA Consulting & Training'
+const defaultDescription = 'Skilpex is a responsible industrial AI consultancy combining Artificial Intelligence, Industrial IoT, RPA, and AI governance — delivering hands-on training and strategic guidance to enterprises and public sector organisations.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'TechConsult | AI, IIoT & RPA Consulting & Training',
-    template: '%s | TechConsult',
+    default: defaultTitle,
+    template: `%s | ${siteName}`,
   },
-  description: 'Leading technology consulting and training company specializing in Artificial Intelligence, Industrial IoT, and Robotic Process Automation. Transform your business with cutting-edge technology solutions.',
+  description: defaultDescription,
   keywords: [
+    'Skilpex',
     'AI consulting',
+    'responsible AI',
     'artificial intelligence training',
     'IIoT solutions',
     'Industrial Internet of Things',
+    'Industry 4.0',
     'RPA automation',
     'UiPath training',
     'machine learning courses',
     'Python training',
     'data analytics',
     'digital transformation',
+    'AI governance',
     'technology consulting',
     'enterprise automation',
     'predictive maintenance',
-    'edge computing',
+    'Bradford UK',
   ],
-  authors: [{ name: 'TechConsult Team' }],
-  creator: 'TechConsult',
-  publisher: 'TechConsult',
+  authors: [{ name: 'Skilpex Team' }],
+  creator: siteName,
+  publisher: siteName,
   robots: {
     index: true,
     follow: true,
@@ -61,35 +68,31 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    alternateLocale: ['es_ES', 'fr_FR'],
+    locale: 'en_GB',
+    alternateLocale: ['en_US', 'fr_FR', 'ar'],
     url: siteUrl,
-    siteName: siteName,
-    title: 'TechConsult | AI, IIoT & RPA Consulting & Training',
-    description: 'Transform your business with cutting-edge AI, Industrial IoT, and RPA solutions. Expert consulting and hands-on training programs.',
+    siteName,
+    title: defaultTitle,
+    description: defaultDescription,
     images: [
       {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'TechConsult - Technology Consulting & Training',
+        url: '/main-logo.svg',
+        width: 142,
+        height: 164,
+        alt: 'Skilpex — Responsible Industrial AI Consultancy',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'TechConsult | AI, IIoT & RPA Solutions',
-    description: 'Expert technology consulting and training in AI, Industrial IoT, and Robotic Process Automation.',
-    images: ['/og-image.jpg'],
-    creator: '@techconsult',
+    card: 'summary',
+    title: defaultTitle,
+    description: defaultDescription,
+    images: ['/main-logo.svg'],
+    creator: '@skilpex',
+    site: '@skilpex',
   },
   alternates: {
     canonical: siteUrl,
-    languages: {
-      'en-US': `${siteUrl}/en`,
-      'es-ES': `${siteUrl}/es`,
-      'fr-FR': `${siteUrl}/fr`,
-    },
   },
   category: 'technology',
 }
@@ -115,20 +118,18 @@ const jsonLd = {
       url: siteUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${siteUrl}/logo.png`,
-        width: 180,
-        height: 60,
+        url: `${siteUrl}/main-logo.svg`,
+        width: 142,
+        height: 164,
       },
       sameAs: [
-        'https://linkedin.com/company/techconsult',
-        'https://twitter.com/techconsult',
-        'https://github.com/techconsult',
+        'https://linkedin.com/company/skilpex',
+        'https://twitter.com/skilpex',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+1-555-123-4567',
         contactType: 'sales',
-        availableLanguage: ['English', 'Spanish', 'French'],
+        availableLanguage: ['English', 'Spanish', 'French', 'Arabic'],
       },
     },
     {
@@ -137,40 +138,40 @@ const jsonLd = {
       url: siteUrl,
       name: siteName,
       publisher: { '@id': `${siteUrl}/#organization` },
-      inLanguage: ['en-US', 'es-ES', 'fr-FR'],
+      inLanguage: ['en-GB', 'es-ES', 'fr-FR', 'ar'],
     },
     {
       '@type': 'WebPage',
       '@id': `${siteUrl}/#webpage`,
       url: siteUrl,
-      name: 'TechConsult | AI, IIoT & RPA Consulting & Training',
+      name: defaultTitle,
       isPartOf: { '@id': `${siteUrl}/#website` },
       about: { '@id': `${siteUrl}/#organization` },
-      description: 'Leading technology consulting and training company specializing in AI, IIoT, and RPA.',
+      description: defaultDescription,
     },
     {
       '@type': 'ProfessionalService',
       '@id': `${siteUrl}/#service`,
-      name: 'TechConsult Technology Services',
+      name: 'Skilpex Consulting & Training',
       provider: { '@id': `${siteUrl}/#organization` },
-      serviceType: ['Technology Consulting', 'Corporate Training', 'Digital Transformation'],
+      serviceType: ['AI Consulting', 'Industrial IoT', 'RPA Automation', 'Corporate Training', 'AI Governance'],
       areaServed: 'Worldwide',
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Training Programs',
+        name: 'Training Programmes',
         itemListElement: [
           {
             '@type': 'Course',
-            name: 'Python Fundamentals',
-            description: 'Comprehensive 5-day Python programming course for beginners',
+            name: 'Python Fundamentals for AI',
+            description: 'Comprehensive Python programming course for data and AI applications',
             provider: { '@id': `${siteUrl}/#organization` },
             educationalLevel: 'Beginner',
             timeRequired: 'P5D',
           },
           {
             '@type': 'Course',
-            name: 'ML Hands-On',
-            description: 'Intermediate 5-day machine learning practical training',
+            name: 'Machine Learning Hands-On',
+            description: 'Practical machine learning training from prototype to production',
             provider: { '@id': `${siteUrl}/#organization` },
             educationalLevel: 'Intermediate',
             timeRequired: 'P5D',
@@ -178,7 +179,7 @@ const jsonLd = {
           {
             '@type': 'Course',
             name: 'IIoT Implementation',
-            description: 'Industrial IoT implementation and deployment training',
+            description: 'Industrial IoT deployment and governance for operations leaders',
             provider: { '@id': `${siteUrl}/#organization` },
             educationalLevel: 'Intermediate',
             timeRequired: 'P5D',
@@ -218,7 +219,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" className="bg-background scroll-smooth" suppressHydrationWarning>
+    <html lang="en-GB" className="bg-background scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/main-logo.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/main-logo.svg" />
