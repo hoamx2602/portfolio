@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { SkilpexLogo } from '@/components/skilpex-logo'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -65,11 +66,8 @@ export function Header() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">TC</span>
-              </div>
-              <span className="text-lg font-semibold text-foreground">TechConsult</span>
+            <Link href="/" className="flex items-center">
+              <SkilpexLogo className="h-10 w-auto" />
             </Link>
           </div>
 
