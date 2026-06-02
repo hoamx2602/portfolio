@@ -10,7 +10,7 @@ const techBadges = [
   { label: 'Responsible AI', icon: Shield },
   { label: 'Industrial IoT', icon: Cpu },
   { label: 'AI & Machine Learning', icon: Zap },
-  { label: 'RPA & Automation', icon: Bot },
+  { label: 'Robotic Process Automation', icon: Bot },
   { label: 'AI Governance', icon: Shield },
 ]
 

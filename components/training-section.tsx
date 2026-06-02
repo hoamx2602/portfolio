@@ -691,7 +691,7 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
     { id: 'all',  label: 'All Programs' },
     { id: 'ai',   label: 'Artificial Intelligence' },
     { id: 'iiot', label: 'Industrial IoT' },
-    { id: 'rpa',  label: 'RPA' },
+    { id: 'rpa',  label: 'Robotic Process Automation' },
   ]
 
   return (

@@ -19,8 +19,8 @@ export function Footer() {
   }, [])
 
   const footerLinks = {
-    services: ['AI Consulting', 'Industrial IoT', 'RPA & Automation', 'Responsible AI', 'AI Governance'],
-    training: ['Executive AI Training', 'Technical AI & IIoT', 'Responsible AI Training', 'RPA & Automation', 'View All Programmes'],
+    services: ['AI Consulting', 'Industrial IoT', 'Robotic Process Automation', 'Responsible AI', 'AI Governance'],
+    training: ['Executive AI Training', 'Technical AI & IIoT', 'Responsible AI Training', 'Robotic Process Automation', 'View All Programmes'],
     company:  [t.nav.about, 'Case Studies', 'Insights & Blog', 'Careers', t.nav.contact],
   }
 
