@@ -20,6 +20,7 @@ export const trainingModuleType: SchemaTypeDefinition = {
           { title: 'Artificial Intelligence', value: 'ai' },
           { title: 'Industrial IoT', value: 'iiot' },
           { title: 'RPA', value: 'rpa' },
+          { title: 'Cybersecurity', value: 'cybersecurity' },
         ],
       },
       validation: (rule) => rule.required(),

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react'
 
-export type ServiceCategory = 'all' | 'ai' | 'iiot' | 'rpa'
+export type ServiceCategory = 'all' | 'ai' | 'iiot' | 'rpa' | 'cybersecurity'
 
 interface FilterContextType {
   activeFilter: ServiceCategory

@@ -340,6 +340,86 @@ const modulesData = [
       { day: 5, title: 'UiPath Studio', topics: ['UiPath Environment Setup', 'Building Production Bots', 'Deployment & Monitoring'] },
     ],
   },
+  {
+    category: 'cybersecurity',
+    title: 'Cyberthreat & Situational Awareness Training',
+    duration: '2 days',
+    level: 'Foundation',
+    color: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    thumbnail: '/thumb-data-mgmt.png',
+    contentType: 'overview',
+    overview: {
+      description:
+        'An organisation-wide awareness programme that builds a shared understanding of the current cyber threat landscape and equips every employee to recognise, avoid, and report suspicious activity before it becomes a breach.',
+      noCodingNote:
+        'Designed for all roles — from front-line staff to executives. No technical background required. Focus is on practical recognition, safe behaviours, and clear escalation paths.',
+      calloutTitle: 'All Staff Programme',
+      benefits: [
+        { iconName: 'ShieldCheck', title: 'Reduce Human Error', stat: 'Up to 90% of breaches', desc: 'Address the leading cause of incidents — phishing, misdirected data, and weak authentication habits.' },
+        { iconName: 'Zap', title: 'Faster Incident Detection', stat: 'Minutes, not days', desc: 'Train teams to spot anomalies early and report through the correct channels without delay.' },
+        { iconName: 'TrendingUp', title: 'Regulatory Alignment', stat: 'GDPR & sector duties', desc: 'Demonstrate due diligence on security awareness for audits, tenders, and board reporting.' },
+        { iconName: 'BarChart', title: 'Measurable Culture Shift', stat: 'Phishing resilience', desc: 'Baseline and track improvement through simulations, quizzes, and post-training assessments.' },
+      ],
+      useCases: [
+        { iconName: 'ShieldCheck', title: 'Phishing Resilience', outcome: 'Reduced malicious link click-through by 68% within 90 days of organisation-wide rollout.' },
+        { iconName: 'Wifi', title: 'Remote & Hybrid Workforce', outcome: 'Standardised secure working practices for distributed teams across multiple jurisdictions.' },
+        { iconName: 'Factory', title: 'OT / IT Convergence', outcome: 'Gave plant operators shared vocabulary with IT security for reporting unusual network or device behaviour.' },
+        { iconName: 'TrendingUp', title: 'Executive Briefings', outcome: 'Enabled board members to interpret threat intelligence briefings and ask informed governance questions.' },
+      ],
+      topics: [
+        'Current threat landscape (ransomware, BEC, supply chain)',
+        'Social engineering & phishing recognition',
+        'Password hygiene, MFA & credential safety',
+        'Secure email, file sharing & removable media',
+        'Safe remote work, VPN & personal device risks',
+        'Insider threat indicators & reporting duty',
+        'Incident recognition & escalation procedures',
+        'Building a security-aware culture',
+      ],
+    },
+  },
+  {
+    category: 'cybersecurity',
+    title: 'Operational Risk Assessments',
+    duration: '3 days',
+    level: 'Intermediate',
+    color: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    thumbnail: '/statistical-testing.png',
+    contentType: 'overview',
+    overview: {
+      description:
+        'A hands-on programme for risk owners, IT managers, and compliance teams to conduct structured operational risk assessments — from scoping and asset classification through threat analysis, control selection, and board-ready reporting.',
+      noCodingNote:
+        'Focused on methodology and practical workshops using risk registers and matrices. No programming required — participants leave with templates and a completed sample assessment for their own environment.',
+      calloutTitle: 'Practitioner-Led Workshops',
+      benefits: [
+        { iconName: 'ShieldCheck', title: 'Prioritise What Matters', stat: 'Risk-based focus', desc: 'Move beyond checkbox compliance to assessments that genuinely reflect business criticality and exposure.' },
+        { iconName: 'BarChart', title: 'Defensible Scoring', stat: 'Likelihood × impact', desc: 'Apply consistent matrices and evidence-backed ratings that stand up to audit and regulator scrutiny.' },
+        { iconName: 'TrendingUp', title: 'Actionable Outcomes', stat: 'Treatment plans', desc: 'Translate findings into prioritised control recommendations with clear owners and timelines.' },
+        { iconName: 'Factory', title: 'Cross-Functional Alignment', stat: 'Shared risk language', desc: 'Bridge IT, operations, and leadership with a common framework for discussing and accepting risk.' },
+      ],
+      useCases: [
+        { iconName: 'ShieldCheck', title: 'ISO 27001 Gap Analysis', outcome: 'Produced a prioritised remediation roadmap that closed 80% of high findings within two audit cycles.' },
+        { iconName: 'Wifi', title: 'Cloud Migration Readiness', outcome: 'Identified 12 critical risks before cutover, preventing unplanned downtime during go-live.' },
+        { iconName: 'BarChart', title: 'Board Risk Reporting', outcome: 'Delivered executive heat maps and risk registers adopted for quarterly governance meetings.' },
+        { iconName: 'TrendingUp', title: 'Third-Party Due Diligence', outcome: 'Standardised vendor risk scoring across 40+ suppliers using a repeatable assessment template.' },
+      ],
+      topics: [
+        'ISO 31000 & enterprise risk principles',
+        'NIST CSF Identify function overview',
+        'Risk appetite, tolerance & governance roles',
+        'Scoping assessments (business unit, system, process)',
+        'Asset inventory & criticality classification',
+        'Threat actors, attack vectors & likelihood',
+        'Vulnerability identification (technical & procedural)',
+        'Business impact analysis (CIA triad, downtime cost)',
+        'Risk matrices (likelihood × impact scoring)',
+        'Control selection (preventive, detective, corrective)',
+        'Third-party & supply chain risk considerations',
+        'Risk registers, heat maps & board-ready reporting',
+      ],
+    },
+  },
 ];
 
 async function seedData() {
