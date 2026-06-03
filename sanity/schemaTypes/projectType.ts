@@ -32,6 +32,7 @@ export const projectType: SchemaTypeDefinition = {
           { title: 'Artificial Intelligence', value: 'ai' },
           { title: 'Industrial IoT', value: 'iiot' },
           { title: 'RPA', value: 'rpa' },
+          { title: 'AI Training', value: 'training' },
         ],
       },
       validation: (rule) => rule.required(),

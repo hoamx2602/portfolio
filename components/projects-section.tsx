@@ -8,6 +8,14 @@ import { useLanguage } from '@/components/language-context'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 
+// Map Sanity category values → human-readable badge labels
+const CATEGORY_LABELS: Record<string, string> = {
+  ai:       'AI',
+  iiot:     'IIoT',
+  rpa:      'RPA',
+  training: 'AI Training',
+}
+
 type Project = {
   id: string
   title: string
@@ -124,6 +132,47 @@ const defaultProjects: Project[] = [
       'Freed up 35 FTEs for higher-value work',
     ],
     technologies: ['UiPath', 'Process Mining', 'OCR', 'Azure Functions', 'SQL Server'],
+  },
+  {
+    id: 'aramco-ai-training',
+    title: 'Enterprise AI & Cyber-Threat Training Programme',
+    client: 'Saudi Aramco',
+    category: 'AI Training',
+    categoryColor: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    description:
+      'Delivered a comprehensive training programme on IoT infrastructure, applied AI, and DeepFake threat awareness to 1,200+ engineers and security professionals across Aramco facilities.',
+    metrics: [
+      { value: '1,200+', label: 'Staff Trained' },
+      { value: '94%',    label: 'Competency Score' },
+      { value: '3',      label: 'Technology Tracks' },
+    ],
+    gradientFrom: 'rgba(139,92,246,0.25)',
+    gradientTo:   'rgba(59,130,246,0.10)',
+    accentColor:  '#8b5cf6',
+    iconLabel:    'AI',
+    fullDescription:
+      'Skilpex partnered with Saudi Aramco — one of the world\'s largest energy companies — to design and deliver a multi-track technology training programme across its operational and corporate divisions. The programme covered Industrial IoT sensor networks, practical AI applications in the energy sector, and critical DeepFake threat-awareness training to protect executives and operational integrity.',
+    challenge:
+      'As Aramco accelerated its digital transformation strategy, a widening skills gap emerged across engineering, IT, and security teams. Staff lacked hands-on exposure to modern AI tooling and were largely unaware of the growing risk of synthetic media attacks — including voice cloning and video DeepFakes — used in corporate fraud and social engineering campaigns.',
+    solution:
+      'We designed a modular, instructor-led curriculum split into three specialist tracks: (1) Industrial IoT — covering sensor deployment, edge computing, and real-time telemetry for oil & gas infrastructure; (2) Applied AI — including machine learning fundamentals, predictive maintenance models, and AI-driven anomaly detection; (3) DeepFake & Synthetic Media Awareness — teaching staff to identify AI-generated audio and video content, understand attack vectors, and apply verification protocols. Training was delivered on-site across multiple Aramco locations with hands-on lab environments.',
+    results: [
+      'Trained 1,200+ engineers, analysts, and security professionals',
+      'Achieved 94% average competency score across all tracks',
+      'Reduced reported social-engineering incidents by 60% within 6 months',
+      'Established an internal IoT Centre of Excellence at Aramco HQ',
+      'Participants built live predictive maintenance dashboards during training',
+      'Programme adopted as part of Aramco\'s standard onboarding for technical roles',
+    ],
+    technologies: [
+      'Azure IoT Hub',
+      'TensorFlow',
+      'Python',
+      'FaceForensics++',
+      'Microsoft Sentinel',
+      'Power BI',
+      'Custom LMS',
+    ],
   },
 ]
 
@@ -311,21 +360,26 @@ export function ProjectsSection() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const data = await client.fetch(`*[_type == "project"]`)
+        const data = await client.fetch(
+          `*[_type == "project"] | order(_createdAt asc)`
+        )
         if (data && data.length > 0) {
           const formatted = data.map((p: any) => ({
-             ...p,
-             thumbnail: p.thumbnail ? urlForImage(p.thumbnail)?.url() : ''
+            ...p,
+            // Map stored value ('iiot') → display label ('IIoT')
+            category: CATEGORY_LABELS[p.category] ?? p.category,
+            thumbnail: p.thumbnail ? urlForImage(p.thumbnail)?.url() : '',
           }))
           setFetchedProjects(formatted)
         }
       } catch (e) {
-        console.error("Sanity fetch error:", e)
+        console.error('Sanity fetch error:', e)
       }
     }
     fetchProjects()
   }, [])
-  
+
+  // Sanity is source of truth; defaultProjects are only shown if Sanity is unreachable
   const currentProjects = fetchedProjects.length > 0 ? fetchedProjects : defaultProjects
 
   return (
