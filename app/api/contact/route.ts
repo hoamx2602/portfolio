@@ -73,57 +73,68 @@ function buildEmailHtml({
 }) {
   const companyRow = company
     ? `<tr>
-        <td style="padding:8px 0;color:#6b7280;font-size:13px;width:100px">Company</td>
-        <td style="padding:8px 0;color:#111827;font-size:13px">${esc(company)}</td>
+        <td style="padding:10px 0;color:#6b7280;font-size:13px;width:90px;vertical-align:top">Company</td>
+        <td style="padding:10px 0;color:#e5e7eb;font-size:13px">${esc(company)}</td>
       </tr>`
     : ''
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /></head>
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 16px">
+<body style="margin:0;padding:0;background:#0f1117;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0f1117;padding:40px 16px">
     <tr><td align="center">
-      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px">
 
-        <!-- Header -->
-        <tr><td style="background:linear-gradient(135deg,#0d9488,#0891b2);border-radius:12px 12px 0 0;padding:32px;text-align:center">
-          <div style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,255,255,0.2);border-radius:10px;margin-bottom:12px">
-            <span style="color:#fff;font-weight:700;font-size:14px">TC</span>
-          </div>
-          <h1 style="margin:0;color:#fff;font-size:22px;font-weight:700">New Enquiry</h1>
-          <p style="margin:6px 0 0;color:rgba(255,255,255,0.8);font-size:13px">from your website contact form</p>
+        <!-- Header: dark logo band -->
+        <tr><td style="background:#141820;border-radius:14px 14px 0 0;padding:28px 32px 24px;text-align:center;border-left:1px solid #2a2f3d;border-right:1px solid #2a2f3d;border-top:1px solid #2a2f3d">
+          <img src="https://www.skilpex.uk/side-logo.svg" width="174" height="68" alt="Skilpex" style="display:block;margin:0 auto" />
         </td></tr>
 
+        <!-- Navy title band -->
+        <tr><td style="background:#0C447C;padding:20px 32px 20px;text-align:center">
+          <h1 style="margin:0 0 4px;color:#ffffff;font-size:22px;font-weight:700;letter-spacing:-0.3px">New Enquiry</h1>
+          <p style="margin:0;color:rgba(255,255,255,0.6);font-size:13px">via your website contact form</p>
+        </td></tr>
+
+        <!-- Gold accent bar -->
+        <tr><td style="background:#EF9F27;height:4px;font-size:0;line-height:0">&nbsp;</td></tr>
+
         <!-- Body -->
-        <tr><td style="background:#fff;padding:32px;border-left:1px solid #e5e7eb;border-right:1px solid #e5e7eb">
-          <table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #f3f4f6;margin-bottom:24px;padding-bottom:24px">
+        <tr><td style="background:#141820;padding:32px;border-left:1px solid #2a2f3d;border-right:1px solid #2a2f3d">
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;border-bottom:1px solid #2a2f3d;padding-bottom:24px">
             <tr>
-              <td style="padding:8px 0;color:#6b7280;font-size:13px;width:100px">Name</td>
-              <td style="padding:8px 0;color:#111827;font-size:13px;font-weight:600">${esc(name)}</td>
+              <td style="padding:10px 0;color:#6b7280;font-size:13px;width:90px;vertical-align:top">Name</td>
+              <td style="padding:10px 0;color:#e5e7eb;font-size:13px;font-weight:600">${esc(name)}</td>
             </tr>
             <tr>
-              <td style="padding:8px 0;color:#6b7280;font-size:13px">Email</td>
-              <td style="padding:8px 0;color:#0891b2;font-size:13px">
-                <a href="mailto:${esc(email)}" style="color:#0891b2;text-decoration:none">${esc(email)}</a>
+              <td style="padding:10px 0;color:#6b7280;font-size:13px;vertical-align:top">Email</td>
+              <td style="padding:10px 0;font-size:13px">
+                <a href="mailto:${esc(email)}" style="color:#60a5fa;text-decoration:none;font-weight:500">${esc(email)}</a>
               </td>
             </tr>
             ${companyRow}
           </table>
 
-          <p style="margin:0 0 8px;font-size:13px;color:#6b7280;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Message</p>
-          <div style="background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;padding:16px;font-size:14px;color:#374151;line-height:1.7;white-space:pre-wrap">${esc(message)}</div>
+          <p style="margin:0 0 10px;font-size:11px;font-weight:700;color:#EF9F27;text-transform:uppercase;letter-spacing:0.08em">Message</p>
+          <div style="background:#0f1117;border-radius:8px;border-left:3px solid #EF9F27;padding:16px 20px;font-size:14px;color:#d1d5db;line-height:1.75;white-space:pre-wrap">${esc(message)}</div>
 
           <div style="margin-top:28px;text-align:center">
-            <a href="mailto:${esc(email)}?subject=Re: Your enquiry" style="display:inline-block;background:linear-gradient(135deg,#0d9488,#0891b2);color:#fff;text-decoration:none;border-radius:8px;padding:12px 28px;font-size:14px;font-weight:600">
+            <a href="mailto:${esc(email)}?subject=Re: Your enquiry to Skilpex"
+               style="display:inline-block;background:#0C447C;color:#ffffff;text-decoration:none;border-radius:8px;padding:13px 32px;font-size:14px;font-weight:600;letter-spacing:0.01em">
               Reply to ${esc(name)}
             </a>
           </div>
         </td></tr>
 
         <!-- Footer -->
-        <tr><td style="background:#f9fafb;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 12px 12px;padding:20px 32px;text-align:center">
-          <p style="margin:0;font-size:12px;color:#9ca3af">This message was sent from the contact form at your TechConsult website.</p>
+        <tr><td style="background:#0f1117;border:1px solid #2a2f3d;border-top:none;border-radius:0 0 14px 14px;padding:24px 32px;text-align:center">
+          <img src="https://www.skilpex.uk/main-logo.svg" width="28" height="32" alt="Skilpex" style="display:block;margin:0 auto 10px" />
+          <p style="margin:0 0 3px;font-size:12px;color:#6b7280">
+            &copy; ${new Date().getFullYear()} Skilpex &nbsp;&middot;&nbsp;
+            <a href="https://www.skilpex.uk" style="color:#60a5fa;text-decoration:none">skilpex.uk</a>
+          </p>
+          <p style="margin:0;font-size:11px;color:#4b5563">This message was submitted via the contact form on your website.</p>
         </td></tr>
 
       </table>
