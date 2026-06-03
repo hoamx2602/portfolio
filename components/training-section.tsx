@@ -804,7 +804,11 @@ export function TrainingSection({ isFullPage = false }: { isFullPage?: boolean }
                 key={filter.id}
                 variant={activeFilter === filter.id ? 'default' : 'outline'}
                 onClick={() => setActiveFilter(filter.id)}
-                className="min-w-[140px] transition-all duration-300"
+                className={cn(
+                  'min-w-[140px] rounded-full transition-all duration-300',
+                  activeFilter !== filter.id &&
+                    'text-foreground hover:text-primary dark:hover:text-primary',
+                )}
                 aria-pressed={activeFilter === filter.id}
               >
                 {filter.label}
