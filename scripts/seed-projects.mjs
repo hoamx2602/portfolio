@@ -154,8 +154,65 @@ const projects = [
       'Custom LMS',
     ],
   },
+  {
+    _type: 'project',
+    _id:   'project-secure-pptx-viewer',
+    id:    'secure-pptx-viewer',
+    title: 'Secure PPTX Document Viewer',
+    client: 'Confidential Enterprise',
+    category: 'cybersecurity',
+    categoryColor: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
+    description: 'Developed a secure document viewer application allowing restricted access to sensitive presentation files without save or download capabilities.',
+    metrics: [
+      { _key: 'm1', value: '0%', label: 'Data Leaks' },
+      { _key: 'm2', value: '10K+', label: 'Adoption' },
+      { _key: 'm3', value: '100%', label: 'Compliance' }
+    ],
+    gradientFrom: 'rgba(239,68,68,0.25)',
+    gradientTo:   'rgba(220,38,38,0.1)',
+    accentColor:  '#ef4444',
+    iconLabel:    'Cyber',
+    fullDescription: 'Designed and implemented a high-security application for a corporate client that needed to distribute sensitive training and operational presentations (PPTX). The app renders presentations natively while strictly enforcing read-only access, completely disabling print, save, and download functionality.',
+    challenge: 'The client needed to share highly confidential intellectual property with a distributed workforce, but standard document sharing solutions posed an unacceptable risk of intellectual property theft through unauthorized downloading or saving.',
+    solution: 'We engineered a custom document rendering engine that processes PPTX files server-side and streams them as interactive, DRM-protected canvas elements to the client app. We implemented deep OS-level hooks to block screen capture tools and prevent cache extraction.',
+    results: [
+      'Zero reported instances of intellectual property theft',
+      'Successfully onboarded over 10,000 corporate users',
+      'Maintained high performance and rendering fidelity of complex presentations',
+      'Achieved strict compliance with internal data governance policies'
+    ],
+    technologies: ['React', 'Electron', 'DRM integration', 'Server-side rendering', 'Node.js'],
+  },
+  {
+    _type: 'project',
+    _id:   'project-ai-car-care',
+    id:    'ai-car-care',
+    title: 'AI-Enhanced Auto Warranty & Service',
+    client: 'National Auto Care Network',
+    category: 'ai',
+    categoryColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    description: 'Implemented computer vision and predictive AI to streamline warranty claims and optimize automated car wash durations, drastically reducing customer wait times.',
+    metrics: [
+      { _key: 'm1', value: '-35%', label: 'Wait Time' },
+      { _key: 'm2', value: '< 2m', label: 'Claim Approval' },
+      { _key: 'm3', value: '+40%', label: 'Efficiency' }
+    ],
+    gradientFrom: 'rgba(59,130,246,0.25)',
+    gradientTo:   'rgba(37,99,235,0.1)',
+    accentColor:  '#3b82f6',
+    iconLabel:    'AI',
+    fullDescription: 'Transformed the customer experience for a national auto service chain by deploying an integrated AI solution. The system utilizes edge-computing cameras to assess vehicle condition for warranty claims upon arrival, and dynamically adjusts car wash cycles based on real-time dirt and debris analysis.',
+    challenge: 'Customers were experiencing long wait times for manual warranty inspections and a "one-size-fits-all" car wash process that was either too slow for lightly soiled cars or inadequate for heavily soiled ones, leading to bottlenecks and dissatisfaction.',
+    solution: 'We deployed a computer vision model at service bay entrances to instantly capture and analyze vehicle damage, cross-referencing it with warranty databases for rapid pre-approval. For the wash bays, a secondary AI model analyzes the vehicle\'s dirt levels to customize the wash duration and chemical mix in real-time.',
+    results: [
+      'Reduced average customer wait time by 35%',
+      'Decreased warranty claim processing time from hours to under 2 minutes',
+      'Increased car wash throughput by 40% during peak hours',
+      'Significantly improved customer satisfaction scores (CSAT)'
+    ],
+    technologies: ['Computer Vision', 'PyTorch', 'Edge AI', 'IoT integration', 'Python'],
+  },
 ]
-
 // ── Upsert (createOrReplace) — safe to run multiple times ───────────────────
 async function seed() {
   console.log(`\nConnecting to Sanity project "${projectId}" (${dataset})...\n`)

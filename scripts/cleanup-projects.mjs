@@ -20,6 +20,8 @@ const KEEP_IDS = [
   'project-ai-customer-service',
   'project-enterprise-rpa',
   'project-aramco-ai-training',
+  'project-secure-pptx-viewer',
+  'project-ai-car-care',
 ]
 
 async function cleanup() {

@@ -14,6 +14,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   iiot:     'IIoT',
   rpa:      'RPA',
   training: 'AI Training',
+  cybersecurity: 'Cybersecurity',
 }
 
 type Project = {
